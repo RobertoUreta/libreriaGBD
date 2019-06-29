@@ -1,17 +1,18 @@
 'use strict'
 
 const Hapi = require('@hapi/hapi');
-const hapiPgPromise = require('hapi-pg-promise')
+const hapiPgPromise = require('hapi-pg-promise');
+require('dotenv').config();
 const init = async() => {
     const server = Hapi.server({
-        port: 3001,
-        host: 'localhost'
+        port: process.env.PORT,
+        host: process.env.HOST
     });
 
     const pluginPg = {
         plugin: hapiPgPromise,
         options: {
-            cn: 'postgres://postgres:123456@localhost:5432/libreria'
+            cn: process.env.DB_CONNECTION
         }
     }
 
