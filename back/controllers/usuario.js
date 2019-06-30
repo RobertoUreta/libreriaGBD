@@ -1,9 +1,9 @@
 'use strict';
 
 
-function controlador_usuario() {}
+function ControladorUsuario() {}
 
-controlador_usuario.prototype = (function() {
+ControladorUsuario.prototype = (function() {
     return {
         agregar_usuario: async(request, h) => {
             let data = request.payload;
@@ -81,5 +81,5 @@ controlador_usuario.prototype = (function() {
 
     }
 })();
-let controlador_usuario = new controlador_usuario();
+let controlador_usuario = new ControladorUsuario();
 module.exports = controlador_usuario;
