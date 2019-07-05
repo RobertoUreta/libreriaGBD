@@ -1,77 +1,76 @@
 'use strict';
 
 
-function ControladorUsuario() {}
+function ControladorAutor() {}
 
-ControladorUsuario.prototype = (function() {
+ControladorAutor.prototype = (function() {
     return {
-        agregar_usuario: async(request, h) => {
+        agregar_autor: async(request, h) => {
             let data = request.payload;
             try {
                 await request.db.any(
-                    'CALL insertar_usuario(${correo},${nombre},${ap_paterno},${ap_materno},${direccion},${ciudad},${tipo})', {
-                        correo: data.correo,
+                    'CALL insertar_autor(${nombre},${ap_paterno},${ap_materno},${fec_nac},${nacionalidad},${lugar_nacimiento})', {
                         nombre: data.nombre,
                         ap_paterno: data.ap_paterno,
                         ap_materno: data.ap_materno,
-                        direccion: data.direccion,
-                        ciudad: data.ciudad,
-                        tipo: parseInt(data.tipo)
+                        fec_nac: data.fec_nac,
+                        nacionalidad: data.nacionalidad,
+                        lugar_nacimiento: data.lugar_nacimiento
                     }
                 );
                 return h.response({
-                    mensaje: 'Usuario agregado',
+                    mensaje: 'Autor agregado',
                     ok: true
                 }).code(200);
             } catch (error) {
                 return h.response({
-                    mensaje: 'Error al agregar usuario',
+                    mensaje: 'Error al agregar autor',
                     ok: false,
                     error_mensaje: error.message,
                     error: error
                 }).code(500);
             }
         },
-        actualizar_usuario: async(request, h) => {
+        actualizar_autor: async(request, h) => {
             let data = request.payload;
             try {
                 await request.db.any(
-                    'CALL editar_usuario(${correo},${nombre},${ap_paterno},${ap_materno},${direccion},${ciudad},${tipo})', {
-                        correo: data.correo,
+                    'CALL editar_autor(${id},${nombre},${ap_paterno},${ap_materno},${fec_nac},${nacionalidad},${lugar_nacimiento})', {
+                        id: data.id,
                         nombre: data.nombre,
                         ap_paterno: data.ap_paterno,
                         ap_materno: data.ap_materno,
-                        direccion: data.direccion,
-                        ciudad: data.ciudad,
-                        tipo: parseInt(data.tipo)
+                        fec_nac: data.fec_nac,
+                        nacionalidad: data.nacionalidad,
+                        lugar_nacimiento: data.lugar_nacimiento
                     }
                 );
                 return h.response({
-                    mensaje: 'Usuario actualizado',
+                    mensaje: 'Autor actualizado',
                     ok: true
                 }).code(200);
             } catch (error) {
                 return h.response({
-                    mensaje: 'Error al actualizar usuario',
+                    mensaje: 'Error al actualizar autor',
                     ok: false,
                     error_mensaje: error.message,
                     error: error
                 }).code(500);
             }
         },
-        eliminar_usuario: async(request, h) => {
+        eliminar_autor: async(request, h) => {
             let data = request.payload;
             try {
-                await request.db.any('CALL eliminar_usuario(${correo})', {
-                    correo: data.correo
+                await request.db.any('CALL eliminar_autor(${id})', {
+                    id: data.id
                 });
                 return h.response({
-                    mensaje: 'Usuario eliminado',
+                    mensaje: 'Autor eliminado',
                     ok: true
                 }).code(200);
             } catch (error) {
                 return h.response({
-                    mensaje: 'Error al eliminar usuario',
+                    mensaje: 'Error al eliminar el autor',
                     ok: false,
                     error_mensaje: error.message,
                     error: error
@@ -81,5 +80,5 @@ ControladorUsuario.prototype = (function() {
 
     }
 })();
-let controlador_usuario = new ControladorUsuario();
-module.exports = controlador_usuario;
+let controlador_autor = new ControladorAutor();
+module.exports = controlador_autor;
