@@ -5,6 +5,10 @@ const hapiPgPromise = require('hapi-pg-promise');
 const controlador_usuario = require('./controllers/usuario');
 const controlador_autor = require('./controllers/autor');
 const controlador_libro = require('./controllers/libro');
+const controlador_categoria = require('./controllers/categoria');
+const controlador_editorial = require('./controllers/editorial');
+const controlador_escribe_categorizado = require('./controllers/escribre_categorizado');
+const controlador_compra = require('./controllers/compra');
 require('dotenv').config();
 const init = async() => {
     const server = Hapi.server({
@@ -34,6 +38,21 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_libro', handler: controlador_libro.agregar_libro });
     server.route({ method: 'PUT', path: '/actualizar_libro', handler: controlador_libro.actualizar_libro });
     server.route({ method: 'DELETE', path: '/eliminar_libro', handler: controlador_libro.eliminar_libro });
+
+    server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
+    server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
+    server.route({ method: 'DELETE', path: '/eliminar_categoria', handler: controlador_categoria.eliminar_categoria });
+
+    server.route({ method: 'POST', path: '/agregar_editorial', handler: controlador_editorial.agregar_editorial });
+    server.route({ method: 'PUT', path: '/actualizar_editorial', handler: controlador_editorial.actualizar_editorial });
+    server.route({ method: 'DELETE', path: '/eliminar_editorial', handler: controlador_editorial.eliminar_editorial });
+
+    server.route({ method: 'POST', path: '/agregar_escribe', handler: controlador_escribe_categorizado.agregar_escribe });
+    server.route({ method: 'PUT', path: '/actualizar_escribe', handler: controlador_escribe_categorizado.actualizar_escribe });
+
+    server.route({ method: 'POST', path: '/agregar_categorizado', handler: controlador_escribe_categorizado.agregar_categorizado });
+
+    server.route({ method: 'POST', path: '/agregar_compra', handler: controlador_compra.agregar_compra });
 
 
 
