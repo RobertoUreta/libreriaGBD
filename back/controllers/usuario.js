@@ -6,7 +6,7 @@ function ControladorUsuario() {}
 ControladorUsuario.prototype = (function() {
     return {
         agregar_usuario: async(request, h) => {
-            let data = request.payload;
+            let data = request.payload.info;
             try {
                 await request.db.any(
                     'CALL insertar_usuario(${correo},${nombre},${ap_paterno},${ap_materno},${direccion},${ciudad},${tipo})', {
@@ -72,6 +72,25 @@ ControladorUsuario.prototype = (function() {
             } catch (error) {
                 return h.response({
                     mensaje: 'Error al eliminar usuario',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        get_usuarios:async(request, h) => {
+            let data = request.payload;
+            try {
+                let datita= await request.db.any('SELECT usuario.* FROM usuario', {
+                });
+                return h.response({
+                    mensaje: 'usuarios',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Problemas al obtener usuarios',
                     ok: false,
                     error_mensaje: error.message,
                     error: error

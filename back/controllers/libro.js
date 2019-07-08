@@ -6,7 +6,9 @@ function ControladorLibro() {}
 ControladorLibro.prototype = (function() {
     return {
         agregar_libro: async(request, h) => {
-            let data = request.payload;
+            console.log(request);
+            let data = request.payload.info;
+            console.log(data);
             try {
                 await request.db.any(
                     'CALL insertar_libro(${titulo},${edicion},${paginas},${precio},${fecha},${idioma},${ref_editorial})', {
@@ -76,7 +78,7 @@ ControladorLibro.prototype = (function() {
         get_libros: async(request, h) => {
             let data = request.payload;
             try {
-                let datita= await request.db.any('SELECT * FROM libro', {
+                let datita= await request.db.any('SELECT libro.*, editorial.nombre FROM libro, editorial WHERE libro.ref_editorial=editorial.codigo', {
                 });
                 return h.response({
                     mensaje: 'libros',
@@ -86,6 +88,28 @@ ControladorLibro.prototype = (function() {
             } catch (error) {
                 return h.response({
                     mensaje: 'Error al eliminar el libro',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        aumentar_stock: async(request, h) => {
+            let data = request.payload.info;
+            try {
+                await request.db.any(
+                    'CALL aumentar_stock(${codigo},${stock})', {
+                        codigo: data.codigo,
+                        stock: data.stock
+                    }
+                );
+                return h.response({
+                    mensaje: 'libro actualizado',
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al actualizar libro',
                     ok: false,
                     error_mensaje: error.message,
                     error: error

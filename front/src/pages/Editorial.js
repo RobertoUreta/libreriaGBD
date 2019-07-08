@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Button, Row } from 'react-bootstrap'
 import { Layout } from '../components/Layout'
+import { TablaEditorial } from '../components/TablaEditorial';
 export class Editorial extends Component {
 
     constructor(props) {
@@ -15,19 +16,13 @@ export class Editorial extends Component {
     render() {
     
         return (
-                <div id="body"> 
-                <Layout></Layout>
+            <div id="body"> 
+                
+            <Layout></Layout>
                     <div style={{paddingTop: '100px' }}>
-                        <Row>
-                            <Col>
-                                <Button className="btn-custom" > Agregar Editorial</Button>
-                            </Col>
-                            <Col>
-                            </Col>
-                        </Row>
                     </div>
                     <div>
-                       <span>works!</span>
+                       <TablaEditorial/>
                     </div>
                 </div>
         )

@@ -6,7 +6,7 @@ function ControladorEditorial() {}
 ControladorEditorial.prototype = (function() {
     return {
         agregar_editorial: async(request, h) => {
-            let data = request.payload;
+            let data = request.payload.info;
             try {
                 await request.db.any(
                     'CALL insertar_editorial(${nombre},${telefono},${direccion},${ciudad})', {
@@ -67,6 +67,25 @@ ControladorEditorial.prototype = (function() {
             } catch (error) {
                 return h.response({
                     mensaje: 'Error al eliminar el editorial',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        get_editoriales: async(request, h) => {
+            let data = request.payload;
+            try {
+                let datita= await request.db.any('SELECT  editorial.* FROM editorial', {
+                });
+                return h.response({
+                    mensaje: 'editorial',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener editoriales',
                     ok: false,
                     error_mensaje: error.message,
                     error: error

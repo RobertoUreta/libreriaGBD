@@ -38,6 +38,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_usuario', handler: controlador_usuario.agregar_usuario });
     server.route({ method: 'PUT', path: '/actualizar_usuario', handler: controlador_usuario.actualizar_usuario });
     server.route({ method: 'DELETE', path: '/eliminar_usuario', handler: controlador_usuario.eliminar_usuario });
+    server.route({ method: 'GET', path: '/lista_usuarios', handler: controlador_usuario.get_usuarios });
 
     server.route({ method: 'POST', path: '/agregar_autor', handler: controlador_autor.agregar_autor });
     server.route({ method: 'PUT', path: '/actualizar_autor', handler: controlador_autor.actualizar_autor });
@@ -47,6 +48,7 @@ const init = async() => {
     server.route({ method: 'PUT', path: '/actualizar_libro', handler: controlador_libro.actualizar_libro });
     server.route({ method: 'DELETE', path: '/eliminar_libro', handler: controlador_libro.eliminar_libro });
     server.route({ method: 'GET', path: '/lista_libros', handler: controlador_libro.get_libros });
+    server.route({ method: 'PUT', path: '/aumentar_stock', handler: controlador_libro.aumentar_stock });
 
     server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
@@ -57,6 +59,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_editorial', handler: controlador_editorial.agregar_editorial });
     server.route({ method: 'PUT', path: '/actualizar_editorial', handler: controlador_editorial.actualizar_editorial });
     server.route({ method: 'DELETE', path: '/eliminar_editorial', handler: controlador_editorial.eliminar_editorial });
+    server.route({ method: 'GET', path: '/lista_editoriales', handler: controlador_editorial.get_editoriales });
 
     server.route({ method: 'POST', path: '/agregar_escribe', handler: controlador_escribe_categorizado.agregar_escribe });
     server.route({ method: 'PUT', path: '/actualizar_escribe', handler: controlador_escribe_categorizado.actualizar_escribe });
