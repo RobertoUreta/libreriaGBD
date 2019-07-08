@@ -73,6 +73,25 @@ ControladorLibro.prototype = (function() {
                 }).code(500);
             }
         },
+        get_libros: async(request, h) => {
+            let data = request.payload;
+            try {
+                let datita= await request.db.any('SELECT * FROM libro', {
+                });
+                return h.response({
+                    mensaje: 'libros',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al eliminar el libro',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
 
     }
 })();

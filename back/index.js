@@ -13,7 +13,14 @@ require('dotenv').config();
 const init = async() => {
     const server = Hapi.server({
         port: process.env.PORT,
-        host: process.env.HOST
+        host: process.env.HOST,
+        routes: {
+            cors: {
+                origin: ["*"],
+                headers: ["Accept", "Content-Type"],
+                additionalHeaders: ["X-Requested-With"]
+            }
+        }
     });
 
     const pluginPg = {
@@ -38,6 +45,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_libro', handler: controlador_libro.agregar_libro });
     server.route({ method: 'PUT', path: '/actualizar_libro', handler: controlador_libro.actualizar_libro });
     server.route({ method: 'DELETE', path: '/eliminar_libro', handler: controlador_libro.eliminar_libro });
+    server.route({ method: 'GET', path: '/lista_libros', handler: controlador_libro.get_libros });
 
     server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
