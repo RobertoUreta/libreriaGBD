@@ -5,6 +5,7 @@ const hapiPgPromise = require('hapi-pg-promise');
 const controlador_usuario = require('./controllers/usuario');
 const controlador_autor = require('./controllers/autor');
 const controlador_libro = require('./controllers/libro');
+const controlador_login = require('./controllers/login');
 const controlador_categoria = require('./controllers/categoria');
 const controlador_editorial = require('./controllers/editorial');
 const controlador_escribe_categorizado = require('./controllers/escribre_categorizado');
@@ -42,6 +43,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
     server.route({ method: 'DELETE', path: '/eliminar_categoria', handler: controlador_categoria.eliminar_categoria });
+    server.route({method: 'POST', path: '/login', handler: controlador_login.login});
 
     server.route({ method: 'POST', path: '/agregar_editorial', handler: controlador_editorial.agregar_editorial });
     server.route({ method: 'PUT', path: '/actualizar_editorial', handler: controlador_editorial.actualizar_editorial });
