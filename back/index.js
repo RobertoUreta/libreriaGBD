@@ -5,6 +5,7 @@ const hapiPgPromise = require('hapi-pg-promise');
 const controlador_usuario = require('./controllers/usuario');
 const controlador_autor = require('./controllers/autor');
 const controlador_libro = require('./controllers/libro');
+const controlador_login = require('./controllers/login');
 require('dotenv').config();
 const init = async() => {
     const server = Hapi.server({
@@ -34,6 +35,8 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_libro', handler: controlador_libro.agregar_libro });
     server.route({ method: 'PUT', path: '/actualizar_libro', handler: controlador_libro.actualizar_libro });
     server.route({ method: 'DELETE', path: '/eliminar_libro', handler: controlador_libro.eliminar_libro });
+
+    server.route({method: 'POST', path: '/login', handler: controlador_login.login});
 
 
 

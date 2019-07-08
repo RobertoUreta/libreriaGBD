@@ -1,0 +1,113 @@
+.buttonSign
+{
+    background: #1E90FF;
+}
+
+.buttonSign:hover
+{
+    background: #1E90FF;
+}
+.buttonLogin
+{
+    background:#1E90FF;
+    align-content: center;
+
+}
+.buttonLogin:hover
+{
+    background: #1E90FF;
+
+}
+
+.login-form-cont
+{
+   display: block;
+   text-align: center;
+   margin-top:3%;
+   margin-left: 10%;
+}
+.login-card
+{
+    display: inline-block;
+    margin-top: 3%;
+    text-align: left;
+   border:1px solid #1E90FF;
+   width: 100%;
+   background: 'white';
+   border-color: '#990000';
+}
+
+.login-icon
+{    
+    margin-top: 3%;
+    margin-left: 45%;
+}
+
+.login-link
+{    
+    margin-left: 10%;
+    color: white;
+}
+
+.passlabel
+{
+    margin-top: 10%;
+}
+
+.logoContainer
+{
+   background:black;
+      
+}
+.logo{
+
+   max-width: 45%;
+   padding-right: 40px;
+    height: auto;
+}
+.tituloLogin
+{
+   
+    font-size: 24px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.btns{
+    margin-top: 10%;
+    
+}
+.login-page{
+    background-image: url("fondo4.jpg");
+    height: 100%;
+    width: 100%;
+}
+.cont{
+   
+  width: 100%;
+}
+.marque-color
+{
+    text-align: center;
+}
+
+.text-login{
+    text-align: center;
+}
+
+.size-image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-cardbody{
+
+    background: #f3f3f3;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: "0rem";
+}
+
+.titulo-color{
+    color: black;
+}
