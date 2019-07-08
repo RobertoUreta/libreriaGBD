@@ -1,8 +1,8 @@
 'use strict';
 
-function ConotroladorLogin(){}
+function ControladorLogin(){}
 
-ConotroladorLogin.prototype =(function (){
+ControladorLogin.prototype =(function (){
     return {
         login: async function login(request,h){
             let datos = request.payload;
@@ -26,4 +26,6 @@ ConotroladorLogin.prototype =(function (){
             }
         }
     }
-})
+})();
+let controlador_login = new ControladorLogin();
+module.exports = controlador_login;

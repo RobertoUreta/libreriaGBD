@@ -31,6 +31,7 @@ export default class Login extends Component{
         this.setState({ isloading: true })
         axios.post(process.env.REACT_APP_BACKURL_REMOTE + "/login", data)
           .then(res => {
+            console.log("este es el resultado: ",res)
             //this.props.onAuth(res.data);
           }).catch(err => {
             this.setState({ error: "Usuario o contraseña incorrectos", isloading: false })
