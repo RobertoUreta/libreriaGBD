@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { HashRouter, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import { Spinner } from 'reactstrap';
 import RefreshRoute from './RefreshRoute';
@@ -31,17 +30,14 @@ class App extends Component {
         <BrowserRouter>
         <Switch>
           <Route exact path='/' component={Layout} />
-        
           <Route exact path="/login" name="Login Page" component={Login} />
           {/*<RefreshRoute path="/" name="Home" component={Login}/>*/}
-        
           <Route path='/libros' component={Libro} />
           <Route path='/editoriales' component={Editorial} />
           <Route path='/autores' component={Autor} />
           <Route path='/usuarios' component={Usuario} />
         </Switch>
         </BrowserRouter>
-        <Layout></Layout>
     </div>
     );
   }

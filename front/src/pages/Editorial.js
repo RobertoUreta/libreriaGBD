@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Col, Button, Row } from 'react-bootstrap'
-//import { Layout } from '../components/Layout'
+import { Layout } from '../components/Layout'
 export class Editorial extends Component {
 
     constructor(props) {
@@ -16,6 +16,7 @@ export class Editorial extends Component {
     
         return (
                 <div id="body"> 
+                <Layout></Layout>
                     <div style={{paddingTop: '100px' }}>
                         <Row>
                             <Col>

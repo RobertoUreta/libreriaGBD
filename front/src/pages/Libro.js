@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Col, Button, Row } from 'react-bootstrap'
 import {TablaLibro} from '../components/TablaLibro'
 import request from '../config'
-//import {} Layout } from '../components/Layout'
+import {Layout } from '../components/Layout'
 export class Libro extends Component {
 
     constructor(props) {
@@ -32,7 +32,10 @@ export class Libro extends Component {
     render() {
     
         return (
+            
                 <div id="body"> 
+                
+            <Layout></Layout>
                     <div style={{paddingTop: '100px' }}>
                         <Row>
                             <Col>
