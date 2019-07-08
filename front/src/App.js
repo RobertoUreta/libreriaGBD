@@ -6,7 +6,13 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import { Spinner } from 'reactstrap';
 import RefreshRoute from './RefreshRoute';
+import {Layout} from './components/Layout'
 
+import {BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Libro } from './pages/Libro';
+import { Editorial } from './pages/Editorial';
+import { Autor } from './pages/Autor';
+import { Usuario } from './pages/Usuario';
 const loading = () => <div className="animated fadeIn pt-3 text-center"><Spinner color="success" /></div>;
 const Login = Loadable({
   loader: () => import('./Login'),
@@ -21,14 +27,26 @@ class App extends Component {
 
   render() {
     return (
-      <HashRouter>
+         <div className="App">
+        <BrowserRouter>
         <Switch>
+          <Route exact path='/' component={Layout} />
+        
           <Route exact path="/login" name="Login Page" component={Login} />
           {/*<RefreshRoute path="/" name="Home" component={Login}/>*/}
+        
+          <Route path='/libros' component={Libro} />
+          <Route path='/editoriales' component={Editorial} />
+          <Route path='/autores' component={Autor} />
+          <Route path='/usuarios' component={Usuario} />
         </Switch>
-      </HashRouter>
+        </BrowserRouter>
+        <Layout></Layout>
+    </div>
     );
   }
+  
+   
 }
 
 export default App;
