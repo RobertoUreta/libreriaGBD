@@ -39,6 +39,7 @@ const init = async() => {
     server.route({ method: 'PUT', path: '/actualizar_usuario', handler: controlador_usuario.actualizar_usuario });
     server.route({ method: 'DELETE', path: '/eliminar_usuario', handler: controlador_usuario.eliminar_usuario });
     server.route({ method: 'GET', path: '/lista_usuarios', handler: controlador_usuario.get_usuarios });
+    server.route({ method: 'GET', path: '/obtener_usuario/{correo}', handler: controlador_usuario.get_usuario});
 
     server.route({ method: 'POST', path: '/agregar_autor', handler: controlador_autor.agregar_autor });
     server.route({ method: 'PUT', path: '/actualizar_autor', handler: controlador_autor.actualizar_autor });

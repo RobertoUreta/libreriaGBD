@@ -1,10 +1,8 @@
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Loadable from 'react-loadable';
 import { Spinner } from 'reactstrap';
-import RefreshRoute from './RefreshRoute';
 import {Layout} from './components/Layout'
 
 import {BrowserRouter, Switch, Route } from 'react-router-dom'

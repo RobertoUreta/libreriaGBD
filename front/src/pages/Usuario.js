@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Col, Button, Row } from 'react-bootstrap'
 import { Layout } from '../components/Layout'
 import { TablaUsuario } from '../components/TablaUsuario';
 export class Usuario extends Component {

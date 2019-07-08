@@ -33,7 +33,7 @@ ControladorUsuario.prototype = (function() {
             }
         },
         actualizar_usuario: async(request, h) => {
-            let data = request.payload;
+            let data = request.payload.info;
             try {
                 await request.db.any(
                     'CALL editar_usuario(${correo},${nombre},${ap_paterno},${ap_materno},${direccion},${ciudad},${tipo})', {
@@ -91,6 +91,27 @@ ControladorUsuario.prototype = (function() {
             } catch (error) {
                 return h.response({
                     mensaje: 'Problemas al obtener usuarios',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        get_usuario:async(request, h) => {
+            let data = request.params;
+            console.log(data);
+            try {
+                let datita= await request.db.any('SELECT usuario.* FROM usuario WHERE correo=${correo}', {
+                    correo: data.correo
+                });
+                return h.response({
+                    mensaje: 'usuario',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Problemas al obtener usuario',
                     ok: false,
                     error_mensaje: error.message,
                     error: error

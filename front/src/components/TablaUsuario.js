@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Table, ModalDialog } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 
 import { Col, Button, Row } from 'react-bootstrap'
 //import { } from '../backend/usuario/usuario'
 import { ModalUsuario } from './ModalUsuario'
 
 import request from '../config'
+import { ModalUsuarioEdit } from './ModalUsuarioEdit';
 export class TablaUsuario extends Component {
     constructor(props) {
         super(props)
@@ -15,7 +16,8 @@ export class TablaUsuario extends Component {
             usuarios: [],
             show: false,
             id: 0,
-            showModalStock:false,
+            showModalEdit:false,
+            email:"",
             mensaje:"",
         })
     }
@@ -27,6 +29,14 @@ export class TablaUsuario extends Component {
 
     _handleClose = (modalEvt) => {
         this.setState({ show: modalEvt });
+    }
+    _handleShowEdit(correo) {
+        this.setState({ showModalEdit: true,email:correo });
+        //this.setState({ show: true })
+    }
+
+    _handleCloseEdit = (modalEvt) => {
+        this.setState({ showModalEdit: modalEvt ,email:""});
     }
 
     componentDidMount(){
@@ -52,7 +62,27 @@ export class TablaUsuario extends Component {
                     .then(res => {
                         self.setState({ usuarios: res.data.data, mensaje: res.data.mensaje })
                     })
-
+                    .catch(err => {
+                        console.log(err);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        console.log(modalInfo)
+    }
+    _handleModalSubmitEdit = (modalInfo) => {
+        const self = this;
+        let info = JSON.parse(modalInfo);
+        let stringedit = info.tipo;
+        let array = stringedit.split("-");
+        info.tipo = array[0];
+        request.put('/actualizar_usuario', { info })
+            .then(res => {
+                request.get('/lista_usuarios')
+                    .then(res => {
+                        self.setState({ usuarios: res.data.data, mensaje: res.data.mensaje })
+                    })
                     .catch(err => {
                         console.log(err);
                     });
@@ -90,7 +120,7 @@ export class TablaUsuario extends Component {
                     <tbody>
                         {this.state.usuarios.map((v, i) => {
                             return (
-                                <tr key={v.correo} >
+                                <tr key={v.correo} onClick={() => this._handleShowEdit(v.correo)}>
                                     <td>{v.correo}</td>
                                     <td>{v.nombre}</td>
                                     <td>{v.ap_paterno}</td>
@@ -107,6 +137,12 @@ export class TablaUsuario extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
+                {this.state.email===""? <div></div>:<ModalUsuarioEdit
+                    correo={this.state.email}
+                    show={this.state.showModalEdit}
+                    fnCerrar={this._handleCloseEdit}
+                    onSubmit={this._handleModalSubmitEdit} />}
+                
             </div>
         )
     }

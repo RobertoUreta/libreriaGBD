@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Col, Form, Button, Modal } from 'react-bootstrap'
 import request from '../config'
-import { Option } from './Option';
 let editoriales = [];
 export class ModalEditorial extends Component {
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Col, Form, Button, Modal } from 'react-bootstrap'
-//import request from '../config'
+import request from '../config'
 import { Option } from './Option';
 let tipos = ["0-Administrador","1-Cliente"];
-export class ModalUsuario extends Component {
+export class ModalUsuarioEdit extends Component {
 
     constructor(props) {
         super(props)
@@ -40,6 +40,28 @@ export class ModalUsuario extends Component {
         })
     }
 
+    componentDidMount(){
+        const self = this;
+        console.log(this.props.correo);
+        request.get(`/obtener_usuario/${this.props.correo}`)
+                    .then(res => {
+                        console.log(res.data.data[0]);
+                        let data = res.data.data[0];
+                        self.setState({
+                            correo: data.correo,
+                            nombre:data.nombre,
+                            ap_paterno: data.ap_paterno,
+                            ap_materno: data.ap_materno,
+                            direccion: data.direccion,
+                            ciudad: data.ciudad,
+                            tipo: data.tipo===0?tipos[0]:tipos[1],
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+    }
+    
     _handleModalSubmit = (evt) => {
         //console.log(this.state)
 
@@ -53,7 +75,7 @@ export class ModalUsuario extends Component {
         return (
             <Modal show={this.props.show} onHide={this._handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Agregar Usuario</Modal.Title>
+                    <Modal.Title>Editar Usuario</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={this.handleSubmit}>
@@ -63,13 +85,6 @@ export class ModalUsuario extends Component {
                                     value={this.state.correo}
                                     onChange={this.handleChange}
                                     placeholder="Correo"
-                                />
-                            </Form.Group>
-                            <Form.Group controlId="contrasenia">
-                                <Form.Control
-                                    value={this.state.contrasenia}
-                                    onChange={this.handleChange}
-                                    placeholder="Contraseña"
                                 />
                             </Form.Group>
                             <Form.Group controlId="nombre">
@@ -126,7 +141,7 @@ export class ModalUsuario extends Component {
                         Cerrar
                     </Button>
                     <Button className="btn-custom" variant="primary" onClick={this._handleModalSubmit}>
-                        Guardar
+                        Editar
                     </Button>
                 </Modal.Footer>
             </Modal>

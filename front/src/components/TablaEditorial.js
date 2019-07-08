@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, ModalDialog } from 'react-bootstrap'
+import { Table} from 'react-bootstrap'
 
 import { Col, Button, Row } from 'react-bootstrap'
 //import { } from '../backend/usuario/usuario'

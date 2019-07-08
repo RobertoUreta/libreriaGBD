@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {TablaLibro} from '../components/TablaLibro'
-import request from '../config'
+//import request from '../config'
 import {Layout } from '../components/Layout'
 export class Libro extends Component {
 
