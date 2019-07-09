@@ -78,7 +78,7 @@ ControladorEditorial.prototype = (function() {
         get_editoriales: async(request, h) => {
             let data = request.payload;
             try {
-                let datita= await request.db.any('SELECT  editorial.* FROM editorial', {
+                let datita= await request.db.any('SELECT  * FROM todo_editoriales', {
                 });
                 return h.response({
                     mensaje: 'editorial',
@@ -98,7 +98,7 @@ ControladorEditorial.prototype = (function() {
             let data = request.params;
             console.log(data);
             try {
-                let datita= await request.db.any('SELECT editorial.* FROM editorial WHERE codigo=${codigo}', {
+                let datita= await request.db.any('SELECT * FROM todo_editoriales WHERE codigo=${codigo}', {
                     codigo: data.codigo
                 });
                 return h.response({

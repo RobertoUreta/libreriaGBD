@@ -81,7 +81,7 @@ ControladorUsuario.prototype = (function() {
         get_usuarios:async(request, h) => {
             let data = request.payload;
             try {
-                let datita= await request.db.any('SELECT usuario.* FROM usuario', {
+                let datita= await request.db.any('SELECT * FROM todo_usuarios', {
                 });
                 return h.response({
                     mensaje: 'usuarios',
@@ -101,7 +101,7 @@ ControladorUsuario.prototype = (function() {
             let data = request.params;
             console.log(data);
             try {
-                let datita= await request.db.any('SELECT usuario.* FROM usuario WHERE correo=${correo}', {
+                let datita= await request.db.any('SELECT * FROM todo_usuarios WHERE correo=${correo}', {
                     correo: data.correo
                 });
                 return h.response({
