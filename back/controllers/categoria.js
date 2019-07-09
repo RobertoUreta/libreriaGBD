@@ -71,7 +71,7 @@ ControladorCategoria.prototype = (function() {
         get_categorias: async(request, h) => {
             let data = request.payload;
             try {
-                let datita= await request.db.any('SELECT  categoria.* FROM categoria', {
+                let datita= await request.db.any('SELECT * FROM todo_categorias', {
                 });
                 return h.response({
                     mensaje: 'categorias',
@@ -91,7 +91,7 @@ ControladorCategoria.prototype = (function() {
             let data = request.params;
             console.log(data);
             try {
-                let datita= await request.db.any('SELECT categoria.* FROM categoria WHERE id=${codigo}', {
+                let datita= await request.db.any('SELECT * FROM todo_categorias WHERE id=${codigo}', {
                     codigo: data.id
                 });
                 return h.response({

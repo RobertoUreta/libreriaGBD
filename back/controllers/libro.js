@@ -78,7 +78,7 @@ ControladorLibro.prototype = (function() {
         get_libros: async(request, h) => {
             let data = request.payload;
             try {
-                let datita= await request.db.any('SELECT libro.*, editorial.nombre FROM libro, editorial WHERE libro.ref_editorial=editorial.codigo', {
+                let datita= await request.db.any('SELECT * FROM todo_libros', {
                 });
                 return h.response({
                     mensaje: 'libros',
