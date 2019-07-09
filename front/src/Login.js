@@ -7,6 +7,7 @@ import {
   Container, Row, Col, Spinner, CardTitle
 }
   from 'reactstrap';
+import { Layout } from './components/Layout';
 
 
 export default class Login extends Component{
@@ -20,7 +21,15 @@ export default class Login extends Component{
             hidden: true,
             isloading: false,
             error: "",
+            validate: false,
+            userData: {}
         }
+    }
+    handleChange = event => {
+      this.setState({
+        [event.target.id]: event.target.value
+      });
+      
     }
     handleSubmit = event => {
         event.preventDefault();
@@ -28,17 +37,25 @@ export default class Login extends Component{
         data.email = this.state.email;
         data.contrasena = this.state.password;
         this.setState({ isloading: true })
-        axios.post(process.env.REACT_APP_BACKURL_REMOTE + "/login", data)
+        axios.post(process.env.REACT_APP_BACKURL_LOCAL + "/login", data)
           .then(res => {
             console.log("este es el resultado: ",res)
             //this.props.onAuth(res.data);
+            this.setState({validate: true,userData: res});
           }).catch(err => {
             this.setState({ error: "Usuario o contraseña incorrectos", isloading: false })
           })
       }
 
     render(){
+        if(this.state.validate){
+          return(
+            <Redirect to={"/" }></Redirect>
+          )
+        }
+        else{
         return(
+
             <div className="login-page">
             
             <Container className='cont'>
@@ -61,9 +78,9 @@ export default class Login extends Component{
                                 <Input className="input_user"
                                   type="text"
                                   placeholder="Ingrese su usuario"
-                                  name="rut"
-                                  id="rut"
-                                  value={this.state.rut}
+                                  name="email"
+                                  id="email"
+                                  value={this.state.email}
                                   onChange={this.handleChange}
                                   required                             
                                 />                           
@@ -117,6 +134,7 @@ export default class Login extends Component{
           </div> 
 
         )
+      }
     }
 
 }

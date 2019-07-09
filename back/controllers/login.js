@@ -6,21 +6,31 @@ ControladorLogin.prototype =(function (){
     return {
         login: async function login(request,h){
             let datos = request.payload;
+            console.log("datos: ",datos)
             let existe = false;
-            let nombre;
-            await request.db.any ('SELECT * FROM login WHERE contrasenia= $1 AND correo = $2',
-            [datos.correo, datos.contrasenia])
-            .then(function(data){
-                if(Array.isArray(data) && data.length){
-                    nombre= data.nombre;
-                    existe = true;
-                }
-            })
-            .catch(function(error){
+            let nombre = '';
+            let datas= {};
+            let select = 'SELECT * FROM login WHERE contrasenia= ' +"'"+datos.contrasena+"'"+ ' AND correo= ' +"'"+datos.email+ "'"
+            console.log(select)
+            try {
+                await request.db.any (select)
+                .then(function(data){
+                    if(Array.isArray(data) && data.length){
+                        console.log(data)
+                        datas= data;
+                        existe = true;
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })    
+            } catch (error) {
                 console.log(error);
-            })
+            }
+            
             if (existe == true) {
-                return h.response(nombre).code(201);
+                console.log(datas)
+                return h.response(datas).code(201);
             } else {
                 return h.response({ msg: 'usuario fallido' }).code(401);
             }

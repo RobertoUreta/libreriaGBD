@@ -44,6 +44,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_autor', handler: controlador_autor.agregar_autor });
     server.route({ method: 'PUT', path: '/actualizar_autor', handler: controlador_autor.actualizar_autor });
     server.route({ method: 'DELETE', path: '/eliminar_autor', handler: controlador_autor.eliminar_autor });
+    server.route({ method: 'GET', path: '/lista_autor',handler: controlador_autor.get_autor});
 
     server.route({ method: 'POST', path: '/agregar_libro', handler: controlador_libro.agregar_libro });
     server.route({ method: 'PUT', path: '/actualizar_libro', handler: controlador_libro.actualizar_libro });

@@ -77,6 +77,33 @@ ControladorAutor.prototype = (function() {
                 }).code(500);
             }
         },
+        get_autor: async(request,h) =>{
+           let datas = {};
+           let select = 'SELECT * FROM todo_autor'
+           let existe = false;
+           try {
+                await request.db.any (select)
+                .then(function(data){
+                    if(Array.isArray(data) && data.length){
+                        
+                        datas= data;
+                        existe = true;
+                    }
+                })
+                .catch(function(error){
+                    console.log(error);
+                })    
+           } catch (error) {
+               console.log(error)
+           }
+
+           if (existe == true) {
+            
+            return h.response(datas).code(201);
+            } else {
+            return h.response({ msg: 'usuario fallido' }).code(401);
+            }
+        },
 
     }
 })();
