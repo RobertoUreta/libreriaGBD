@@ -42,6 +42,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_autor', handler: controlador_autor.agregar_autor });
     server.route({ method: 'PUT', path: '/actualizar_autor', handler: controlador_autor.actualizar_autor });
     server.route({ method: 'DELETE', path: '/eliminar_autor', handler: controlador_autor.eliminar_autor });
+    server.route({ method: 'GET', path: '/lista_autor',handler: controlador_autor.get_autor});
 
     server.route({ method: 'POST', path: '/agregar_libro', handler: controlador_libro.agregar_libro });
     server.route({ method: 'PUT', path: '/actualizar_libro', handler: controlador_libro.actualizar_libro });
@@ -51,7 +52,7 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
     server.route({ method: 'DELETE', path: '/eliminar_categoria', handler: controlador_categoria.eliminar_categoria });
-    
+
     server.route({method: 'POST', path: '/login', handler: controlador_login.login});
 
     server.route({ method: 'POST', path: '/agregar_editorial', handler: controlador_editorial.agregar_editorial });
