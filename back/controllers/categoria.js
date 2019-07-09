@@ -6,7 +6,7 @@ function ControladorCategoria() {}
 ControladorCategoria.prototype = (function() {
     return {
         agregar_categoria: async(request, h) => {
-            let data = request.payload;
+            let data = request.payload.info;
             try {
                 await request.db.any(
                     'CALL insertar_categoria(${nombre})', {
@@ -27,7 +27,8 @@ ControladorCategoria.prototype = (function() {
             }
         },
         actualizar_categoria: async(request, h) => {
-            let data = request.payload;
+            let data = request.payload.info;
+            console.log("RES",data);
             try {
                 await request.db.any(
                     'CALL editar_categoria(${id},${nombre})', {
@@ -61,6 +62,46 @@ ControladorCategoria.prototype = (function() {
             } catch (error) {
                 return h.response({
                     mensaje: 'Error al eliminar el categoria',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        get_categorias: async(request, h) => {
+            let data = request.payload;
+            try {
+                let datita= await request.db.any('SELECT  categoria.* FROM categoria', {
+                });
+                return h.response({
+                    mensaje: 'categorias',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener categorias',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        get_categoria:async(request, h) => {
+            let data = request.params;
+            console.log(data);
+            try {
+                let datita= await request.db.any('SELECT categoria.* FROM categoria WHERE id=${codigo}', {
+                    codigo: data.id
+                });
+                return h.response({
+                    mensaje: 'categoria',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Problemas al obtener categoria',
                     ok: false,
                     error_mensaje: error.message,
                     error: error

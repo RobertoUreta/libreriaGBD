@@ -54,6 +54,8 @@ const init = async() => {
     server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
     server.route({ method: 'DELETE', path: '/eliminar_categoria', handler: controlador_categoria.eliminar_categoria });
+    server.route({ method: 'GET', path: '/lista_categorias', handler: controlador_categoria.get_categorias });
+    server.route({ method: 'GET', path: '/obtener_categoria/{id}', handler: controlador_categoria.get_categoria});
     
     
     server.route({method: 'POST', path: '/login', handler: controlador_login.login});

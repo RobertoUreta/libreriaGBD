@@ -49,6 +49,7 @@ export class NavBar extends Component {
         const hrefListaEditoriales = `/editoriales`
         const hrefListaAutores = `/autores`
         const hrefListaUsuarios = `/usuarios`
+        const hrefListaCategorias = `/categorias`
         return (
             <div className="Layout">
                 <Navbar bg="light" expand="lg" fixed="top">
@@ -74,6 +75,9 @@ export class NavBar extends Component {
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="usuarios" href={hrefListaUsuarios}>Usuarios</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="categorias" href={hrefListaCategorias}>Categorias</Nav.Link>
                             </Nav.Item>
                         </Nav>
 
