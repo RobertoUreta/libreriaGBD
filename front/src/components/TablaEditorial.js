@@ -6,6 +6,7 @@ import { Col, Button, Row } from 'react-bootstrap'
 import { ModalEditorial } from './ModalEditorial'
 
 import request from '../config'
+import { ModalEditorialEdit } from './ModalEditorialEdit';
 export class TablaEditorial extends Component {
     constructor(props) {
         super(props)
@@ -15,8 +16,8 @@ export class TablaEditorial extends Component {
             editoriales: [],
             show: false,
             id: 0,
-            showModalStock:false,
-            codigoLibro: "",
+            showModalEdit:false,
+            codigoEditorial: "",
             mensaje:"",
         })
     }
@@ -30,6 +31,14 @@ export class TablaEditorial extends Component {
         this.setState({ show: modalEvt });
     }
 
+    _handleShowEdit(codigo) {
+        this.setState({ showModalEdit: true,codigoEditorial:codigo });
+        //this.setState({ show: true })
+    }
+
+    _handleCloseEdit = (modalEvt) => {
+        this.setState({ showModalEdit: modalEvt ,codigoEditorial:""});
+    }
     componentDidMount(){
         const self = this;
         request.get('/lista_editoriales')
@@ -51,6 +60,24 @@ export class TablaEditorial extends Component {
                         self.setState({ editoriales: res.data.data, mensaje: res.data.mensaje })
                     })
 
+                    .catch(err => {
+                        console.log(err);
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        console.log(modalInfo)
+    }
+    _handleModalSubmitEdit = (modalInfo) => {
+        const self = this;
+        let info = JSON.parse(modalInfo);
+        request.put('/actualizar_editorial', { info })
+            .then(res => {
+                request.get('/lista_editoriales')
+                    .then(res => {
+                        self.setState({ editoriales: res.data.data, mensaje: res.data.mensaje })
+                    })
                     .catch(err => {
                         console.log(err);
                     });
@@ -86,7 +113,7 @@ export class TablaEditorial extends Component {
                     <tbody>
                         {this.state.editoriales.map((v, i) => {
                             return (
-                                <tr key={v.codigo} onClick={() => this._handleShowModalStock(v.codigo)}>
+                                <tr key={v.codigo} onClick={() => this._handleShowEdit(v.codigo)}>
                                     <td>{v.codigo}</td>
                                     <td>{v.nombre}</td>
                                     <td>{v.telefono}</td>
@@ -101,6 +128,11 @@ export class TablaEditorial extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
+                {this.state.codigoEditorial===""? <div></div>:<ModalEditorialEdit
+                    codigo={this.state.codigoEditorial}
+                    show={this.state.showModalEdit}
+                    fnCerrar={this._handleCloseEdit}
+                    onSubmit={this._handleModalSubmitEdit} />}
             </div>
         )
     }

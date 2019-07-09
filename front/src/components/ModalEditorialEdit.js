@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Col, Form, Button, Modal } from 'react-bootstrap'
-export class ModalEditorial extends Component {
+import request from '../config'
+export class ModalEditorialEdit extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
+            codigo:"",
             nombre: "",
             telefono: "",
             direccion: "",
@@ -26,6 +28,7 @@ export class ModalEditorial extends Component {
     _handleClose = () => {
         this.props.fnCerrar(false)
         this.setState({
+            codigo:"",
             nombre: "",
             telefono: "",
             direccion: "",
@@ -42,11 +45,32 @@ export class ModalEditorial extends Component {
 
         this._handleClose()
     }
+
+    componentDidMount(){
+        const self = this;
+        console.log(this.props.codigo);
+        request.get(`/obtener_editorial/${this.props.codigo}`)
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data.data[0]);
+                        let data = res.data.data[0];
+                        self.setState({
+                                codigo: data.codigo,
+                                nombre: data.nombre,
+                                telefono:data.telefono,
+                                direccion: data.direccion,
+                                ciudad: data.ciudad,
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+    }
     render() {
         return (
             <Modal show={this.props.show} onHide={this._handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Agregar Editorial</Modal.Title>
+                    <Modal.Title>Editar Editorial</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={this.handleSubmit}>
@@ -88,7 +112,7 @@ export class ModalEditorial extends Component {
                         Cerrar
                     </Button>
                     <Button className="btn-custom" variant="primary" onClick={this._handleModalSubmit}>
-                        Guardar
+                        Editar
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -96,4 +120,3 @@ export class ModalEditorial extends Component {
     }
 
 }
-

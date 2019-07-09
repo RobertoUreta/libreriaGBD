@@ -55,12 +55,14 @@ const init = async() => {
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
     server.route({ method: 'DELETE', path: '/eliminar_categoria', handler: controlador_categoria.eliminar_categoria });
     
+    
     server.route({method: 'POST', path: '/login', handler: controlador_login.login});
 
     server.route({ method: 'POST', path: '/agregar_editorial', handler: controlador_editorial.agregar_editorial });
     server.route({ method: 'PUT', path: '/actualizar_editorial', handler: controlador_editorial.actualizar_editorial });
     server.route({ method: 'DELETE', path: '/eliminar_editorial', handler: controlador_editorial.eliminar_editorial });
     server.route({ method: 'GET', path: '/lista_editoriales', handler: controlador_editorial.get_editoriales });
+    server.route({ method: 'GET', path: '/obtener_editorial/{codigo}', handler: controlador_editorial.get_editorial});
 
     server.route({ method: 'POST', path: '/agregar_escribe', handler: controlador_escribe_categorizado.agregar_escribe });
     server.route({ method: 'PUT', path: '/actualizar_escribe', handler: controlador_escribe_categorizado.actualizar_escribe });

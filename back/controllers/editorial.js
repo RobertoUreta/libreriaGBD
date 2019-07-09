@@ -7,6 +7,7 @@ ControladorEditorial.prototype = (function() {
     return {
         agregar_editorial: async(request, h) => {
             let data = request.payload.info;
+            console.log(data);
             try {
                 await request.db.any(
                     'CALL insertar_editorial(${nombre},${telefono},${direccion},${ciudad})', {
@@ -30,11 +31,12 @@ ControladorEditorial.prototype = (function() {
             }
         },
         actualizar_editorial: async(request, h) => {
-            let data = request.payload;
+            let data = request.payload.info;
+            console.log(data);
             try {
                 await request.db.any(
                     'CALL editar_editorial(${id},${nombre},${telefono},${direccion},${ciudad})', {
-                        id: data.id,
+                        id: data.codigo,
                         nombre: data.nombre,
                         telefono: data.telefono,
                         direccion: data.direccion,
@@ -92,6 +94,28 @@ ControladorEditorial.prototype = (function() {
                 }).code(500);
             }
         },
+        get_editorial:async(request, h) => {
+            let data = request.params;
+            console.log(data);
+            try {
+                let datita= await request.db.any('SELECT editorial.* FROM editorial WHERE codigo=${codigo}', {
+                    codigo: data.codigo
+                });
+                return h.response({
+                    mensaje: 'editorial',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Problemas al obtener editorial',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+
 
     }
 })();
