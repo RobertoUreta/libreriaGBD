@@ -6,7 +6,7 @@ import { Spinner } from 'reactstrap';
 import {Layout} from './components/Layout'
 
 import {BrowserRouter, Switch, Route } from 'react-router-dom'
-import { Libro } from './pages/Libro';
+import  Libro  from './pages/Libro';
 import { Editorial } from './pages/Editorial';
 import { Autor } from './pages/Autor';
 import { Usuario } from './pages/Usuario';
@@ -28,8 +28,8 @@ class App extends Component {
          <div className="App">
         <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Layout} />
-          <Route exact path="/login" name="Login Page" component={Login} />
+          <Route exact path='/home' component={Layout} />
+          <Route exact path='/' name="Login Page" component={Login} />
           {/*<RefreshRoute path="/" name="Home" component={Login}/>*/}
           <Route path='/libros' component={Libro} />
           <Route path='/editoriales' component={Editorial} />

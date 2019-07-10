@@ -7,10 +7,14 @@ import {
   Container, Row, Col, Spinner, CardTitle
 }
   from 'reactstrap';
+import history from '../src/History';
+import * as actions from './store/actions/index'
+import { connect } from 'react-redux';
 import { Layout } from './components/Layout';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router'
 
-export default class Login extends Component{
+
+class Login extends Component{
     constructor(props){
         super(props)
         this.state = {
@@ -41,16 +45,21 @@ export default class Login extends Component{
           .then(res => {
             console.log("este es el resultado: ",res)
             //this.props.onAuth(res.data);
-            this.setState({validate: true,userData: res});
+            //this.setState({validate: true,userData: res.data[0]});
+            this.props.onAuth(res.data);
+            /*history.push('/');
+            window.location.reload();*/
           }).catch(err => {
             this.setState({ error: "Usuario o contraseña incorrectos", isloading: false })
           })
       }
 
     render(){
-        if(this.state.validate){
+        if(this.props.token !== null){
+          console.log("wtf")
+          console.log(this.props)
           return(
-            <Redirect to={"/" }></Redirect>
+            <Redirect to="/home"></Redirect>
           )
         }
         else{
@@ -138,3 +147,22 @@ export default class Login extends Component{
     }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    token: state.auth.token,
+    rol: state.auth.rol,
+    error: state.auth.error,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (user) => {
+      dispatch(actions.auth(user))
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+

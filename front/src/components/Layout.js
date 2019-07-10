@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavBar } from './NavBar'
+import  NavBar  from './NavBar'
 
 export class Layout extends Component {
 
@@ -12,8 +12,9 @@ export class Layout extends Component {
     
 
     render() {
+        console.log(this.props.dataUser)
         return (
-            <NavBar/>
+            <NavBar dataUser={this.props.dataUser}/>
         )
     }
 }

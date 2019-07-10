@@ -55,6 +55,7 @@ class AgregarAutor extends Component{
     this.setState({fecNac:date})
   }
   render(){
+    console.log("entre")
     return(
       <div>
         <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>

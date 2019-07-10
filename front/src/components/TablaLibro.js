@@ -212,7 +212,7 @@ export class TablaLibro extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
-                {this.state.codigoLibro===""? <div></div>:
+                {this.state.codigoLibro==="" && (this.props.userType)!==1 ? <div></div>:
                 <ModalStock
                     show={this.state.showModalStock}
                     codigo={this.state.codigoLibro}
@@ -223,3 +223,4 @@ export class TablaLibro extends Component {
         )
     }
 }
+
