@@ -17,7 +17,7 @@ ControladorLogin.prototype =(function (){
                 .then(function(data){
                     if(Array.isArray(data) && data.length){
                         console.log(data)
-                        datas= data;
+                        datas= data[0];
                         existe = true;
                     }
                 })
@@ -27,7 +27,7 @@ ControladorLogin.prototype =(function (){
             } catch (error) {
                 console.log(error);
             }
-            
+            datas.token="1234";
             if (existe == true) {
                 console.log(datas)
                 return h.response(datas).code(201);

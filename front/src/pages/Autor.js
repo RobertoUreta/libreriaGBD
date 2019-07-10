@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Col, Button, Row,Table,Spinner } from 'react-bootstrap'
 import { Layout } from '../components/Layout';
-import AgregarAutor from './AgregarAutor';
+import AgregarAutor from '../components/ModalAgregarAutor';
 import config from '../config'
+import ModalAutorEdit from '../components/ModalAutorEdit'
 //import { Layout } from '../components/Layout'
 export class Autor extends Component {
 
@@ -12,10 +13,15 @@ export class Autor extends Component {
             usuarios: [],
             esAdmin: false,
             modalAgregarAutor: false,
+            modalAutorEdit: false,
             isLoading: true,
             dataAutores: [],
+            idSelected: false,
         }
         this.toggle = this.toggle.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.toggle2 = this.toggle2.bind(this);
+        this.handleCloseEdit = this.handleCloseEdit.bind(this);
     }
 
     toggle() {
@@ -24,6 +30,20 @@ export class Autor extends Component {
         }));
       }
 
+    toggle2() {
+    this.setState(prevState => ({
+        modalAutorEdit: !prevState.modalAutorEdit
+    }));
+    }
+    handleClick(id) {
+        console.log(id)
+        this.setState(prevState=>({modalAutorEdit: !prevState.modalAutorEdit, idSelected: id}));
+    }
+
+    handleCloseEdit(){
+        this.setState(prevState=>({modalAutorEdit: !prevState.modalAutorEdit,idSelected: false}))
+    }
+    
     componentDidMount(){
         config.get('/lista_autor').
         then( response =>{
@@ -34,6 +54,11 @@ export class Autor extends Component {
         )
     }
 
+    formatDate(date)
+    {
+        var formatedDate = new Date(date);
+        return (""+formatedDate.getFullYear() +"-"+ formatedDate.getMonth()+"-"+formatedDate.getDay()+"" )
+    }
     render() {
     
         return (
@@ -49,9 +74,20 @@ export class Autor extends Component {
                         </Row>
                     </div>
                     <AgregarAutor isOpen={this.state.modalAgregarAutor} toggle={this.toggle}></AgregarAutor>
+                    <div>
+                    {this.state.idSelected===false? <div></div>:<ModalAutorEdit 
+                    isOpen={this.state.modalAutorEdit} 
+                    toggle={this.toggle2} 
+                    id={this.state.idSelected}
+                    fnCerrar={this.handleCloseEdit}></ModalAutorEdit>}
+                    {
+
+                    }
+                    
+                    </div>
                     <div>{
                         (!this.state.isLoading) ?
-                       <Table responsive="md">
+                       <Table  striped bordered hover size="sm">
                            <thead>
                                <tr>
                                    <th>#</th>
@@ -63,12 +99,12 @@ export class Autor extends Component {
                            </thead>
                            <tbody>
                                 {this.state.dataAutores.map((item,index)=>(
-                                    <tr key={index}>
+                                    <tr key={index} onClick={() => this.handleClick(item.id)}>
                                         <th scope="row">{index + 1}</th>
                                         <td>{item.nombre}</td>
                                         <td>{item.ap_paterno}</td>
                                         <td>{item.ap_materno}</td>
-                                        <td>{item.fec_nac}</td>
+                                        <td>{this.formatDate(item.fec_nac)}</td>
                                     </tr>
                                     
                                     

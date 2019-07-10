@@ -146,12 +146,15 @@ export class TablaLibro extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
+                {(this.props.userType)===1 ?
                 <ModalStock
-                    show={this.state.showModalStock}
-                    codigo={this.state.codigoLibro}
-                    fnCerrar={this._handleCloseModalStock}
-                    onSubmit={this._handleModalSubmitModalStock} />
+                show={this.state.showModalStock}
+                codigo={this.state.codigoLibro}
+                fnCerrar={this._handleCloseModalStock}
+                onSubmit={this._handleModalSubmitModalStock} /> : <span>wena los cabros</span>}
+                
             </div>
         )
     }
 }
+

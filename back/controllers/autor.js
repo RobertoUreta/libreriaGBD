@@ -33,6 +33,7 @@ ControladorAutor.prototype = (function() {
         },
         actualizar_autor: async(request, h) => {
             let data = request.payload;
+            console.log(data);
             try {
                 await request.db.any(
                     'CALL editar_autor(${id},${nombre},${ap_paterno},${ap_materno},${fec_nac},${nacionalidad},${lugar_nacimiento})', {
@@ -59,10 +60,10 @@ ControladorAutor.prototype = (function() {
             }
         },
         eliminar_autor: async(request, h) => {
-            let data = request.payload;
+            let data = request.params;
             try {
                 await request.db.any('CALL eliminar_autor(${id})', {
-                    id: data.id
+                    id: data.params
                 });
                 return h.response({
                     mensaje: 'Autor eliminado',
@@ -104,6 +105,33 @@ ControladorAutor.prototype = (function() {
             return h.response({ msg: 'usuario fallido' }).code(401);
             }
         },
+        select_autor: async (request,h)=>{
+            let datas={};
+            let data = request.payload;
+            
+            let select = 'SELECT * FROM todo_autor WHERE id = ' + data.id
+            try {
+                await request.db.any(select).then(function(data){
+                    if(Array.isArray(data) && data.length){
+                        
+                        datas= data;
+                       
+                    }
+                }).catch(function(error){
+                    console.log(error);
+                }) 
+            } catch (error) {
+                console.log(error);
+                return h.response({ msg: 'usuario fallido' }).code(401);
+
+            }
+
+           
+            
+            return h.response(datas).code(201);
+                
+
+        } 
 
     }
 })();
