@@ -39,6 +39,24 @@ export class TablaUsuario extends Component {
         this.setState({ showModalEdit: modalEvt ,email:""});
     }
 
+    _handleEliminar = () => {
+        let id = this.state.email;
+        request.delete(`/eliminar_usuario/${id}`)
+        .then(res => {
+            console.log(res);
+            request.get('/lista_usuarios')
+                    .then(res => {
+                        this.setState({ usuarios: res.data.data, mensaje: res.data.mensaje })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+        })
+        .catch(err => {
+
+            console.log(err);
+        });
+    }
     componentDidMount(){
         const self = this;
         request.get('/lista_usuarios')
@@ -141,6 +159,7 @@ export class TablaUsuario extends Component {
                     correo={this.state.email}
                     show={this.state.showModalEdit}
                     fnCerrar={this._handleCloseEdit}
+                    fnEliminar={this._handleEliminar}
                     onSubmit={this._handleModalSubmitEdit} />}
                 
             </div>

@@ -57,10 +57,10 @@ ControladorEditorial.prototype = (function() {
             }
         },
         eliminar_editorial: async(request, h) => {
-            let data = request.payload;
+            let data = request.params;
             try {
                 await request.db.any('CALL eliminar_editorial(${id})', {
-                    id: data.id
+                    id: data.codigo
                 });
                 return h.response({
                     mensaje: 'editorial eliminada',

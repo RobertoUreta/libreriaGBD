@@ -69,6 +69,22 @@ export class TablaCategoria extends Component {
             });
         console.log(modalInfo)
     }
+    _handleEliminar = () => {
+        let id = this.state.codigoCategoria;
+        request.delete(`/eliminar_categoria/${id}`)
+        .then(res => {
+            request.get('/lista_categorias')
+                    .then(res => {
+                        this.setState({ categorias: res.data.data, mensaje: res.data.mensaje })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
     _handleModalSubmitEdit = (modalInfo) => {
         const self = this;
         let info = JSON.parse(modalInfo);
@@ -126,6 +142,7 @@ export class TablaCategoria extends Component {
                     codigo={this.state.codigoCategoria}
                     show={this.state.showModalEdit}
                     fnCerrar={this._handleCloseEdit}
+                    fnEliminar={this._handleEliminar}
                     onSubmit={this._handleModalSubmitEdit} />}
             </div>
         )

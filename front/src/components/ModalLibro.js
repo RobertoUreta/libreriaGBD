@@ -15,7 +15,8 @@ export class ModalLibro extends Component {
             precio: "",
             fecha: "",
             idioma: "",
-            ref_editorial: ""
+            ref_editorial: "",
+            categoria:""
         }
     }
 
@@ -31,7 +32,6 @@ export class ModalLibro extends Component {
             //this.setState({ editoriales: res.data.data, mensaje:res.data.mensaje})
             console.log("editoriales", this.state.editoriales)
         })
-
         .catch(err => {
             console.log(err);
         });
@@ -54,7 +54,7 @@ export class ModalLibro extends Component {
             precio: "",
             fecha: "",
             idioma: "",
-            ref_editorial: "",
+            ref_editorial: ""
         })
     }
 

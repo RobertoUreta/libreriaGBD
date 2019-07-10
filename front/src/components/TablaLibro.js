@@ -17,9 +17,9 @@ export class TablaLibro extends Component {
             libros: [],
             show: false,
             id: 0,
-            showModalStock:false,
+            showModalStock: false,
             codigoLibro: "",
-            mensaje:"",
+            mensaje: "",
         })
     }
 
@@ -27,9 +27,10 @@ export class TablaLibro extends Component {
         this.setState({ show: true });
         //this.setState({ show: true })
     }
-    _handleShowModalStock( codigo) {
+
+    _handleShowModalStock(codigo) {
         console.log(codigo);
-        this.setState({ showModalStock: true,codigoLibro:codigo});
+        this.setState({ showModalStock: true, codigoLibro: codigo });
         //this.setState({ show: true })
     }
 
@@ -37,18 +38,18 @@ export class TablaLibro extends Component {
         this.setState({ show: modalEvt });
     }
     _handleCloseModalStock = (modalEvt) => {
-        this.setState({ showModalStock: modalEvt });
+        this.setState({ showModalStock: modalEvt, codigoLibro: "" });
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const self = this;
         request.get('/lista_libros')
-                    .then(res => {
-                        self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+            .then(res => {
+                self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     _handleModalSubmit = (modalInfo) => {
@@ -59,6 +60,7 @@ export class TablaLibro extends Component {
         info.ref_editorial = array[0];
         request.post('/agregar_libro', { info })
             .then(res => {
+                console.log(res);
                 request.get('/lista_libros')
                     .then(res => {
                         self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
@@ -73,25 +75,86 @@ export class TablaLibro extends Component {
             });
         console.log(modalInfo)
     }
-    _handleModalSubmitModalStock = (modalInfo) => {
-
-        console.log("_handleModalSubmit")
-        const self = this;
-        let info = JSON.parse(modalInfo)
-        request.put('/aumentar_stock', { info })
-            .then(res => {
-                request.get('/lista_libros')
+    _handleEliminar = () => {
+        let id = this.state.codigoLibro;
+        request.delete(`/eliminar_libro/${id}`)
+        .then(res => {
+            request.get('/lista_libros')
                     .then(res => {
-                        self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
+                        this.setState({ libros: res.data.data, mensaje: res.data.mensaje })
                     })
 
                     .catch(err => {
                         console.log(err);
                     });
-            })
-            .catch(err => {
-                console.log(err);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+    _handleModalSubmitModalStock = (modalInfo) => {
+
+        console.log("_handleModalSubmit")
+        const self = this;
+        let info = JSON.parse(modalInfo)
+        console.log(info);
+        let categorias = info.categorias;
+        console.log(categorias);
+        let autores = info.autores;
+        console.log(autores);
+        if (info.stock !== "") {
+            request.put('/aumentar_stock', { info })
+                .then(res => {
+                    request.get('/lista_libros')
+                        .then(res => {
+                            self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
+                        })
+
+                        .catch(err => {
+                            console.log(err);
+                        });
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        if (categorias !== []) {
+            categorias.map((e) => {
+                let array = e.split("-");
+                request.post('/agregar_categorizado', { ref_libro: info.codigo, ref_categoria: array[0] })
+                    .then(res => {
+                        request.get('/lista_libros')
+                            .then(res => {
+                                self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
             });
+        }
+        if(autores!==[]){
+            autores.map((e)=>{
+                let stringedit = e.autor;
+                let array = stringedit.split("-");
+                request.post('/agregar_escribe', { ref_autor: array[0], ref_libro: info.codigo,fecha_escritura: info.fecha})
+                    .then(res => {
+                        request.get('/lista_libros')
+                            .then(res => {
+                                self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            });
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            });
+        }
     }
 
 
@@ -103,10 +166,10 @@ export class TablaLibro extends Component {
                         <Button className="btn-custom" onClick={this._handleShow}>Agregar Libro</Button>
                     </Col>
                     <Col>
-                        
+
                     </Col>
                 </Row>
-                
+
                 <span>{this.state.mensaje}</span>
                 <Table striped bordered hover size="sm">
                     <thead>
@@ -125,6 +188,9 @@ export class TablaLibro extends Component {
                     </thead>
                     <tbody>
                         {this.state.libros.map((v, i) => {
+                             let fecha = new Date(v.fecha_publicacion)
+                             let nueva = fecha.toJSON().slice(0, 19).replace('T', ' ')
+                             let array = nueva.split(' ');
                             return (
                                 <tr key={v.codigo} onClick={() => this._handleShowModalStock(v.codigo)}>
                                     <td>{v.codigo}</td>
@@ -133,7 +199,7 @@ export class TablaLibro extends Component {
                                     <td>{v.paginas}</td>
                                     <td>{v.stock}</td>
                                     <td>{v.precio}</td>
-                                    <td>{v.fecha_publicacion}</td>
+                                    <td>{array[0]}</td>
                                     <td>{v.valoracion}</td>
                                     <td>{v.idioma}</td>
                                     <td>{v.ref_editorial}-{v.nombre}</td>
@@ -146,11 +212,13 @@ export class TablaLibro extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
+                {this.state.codigoLibro===""? <div></div>:
                 <ModalStock
                     show={this.state.showModalStock}
                     codigo={this.state.codigoLibro}
                     fnCerrar={this._handleCloseModalStock}
-                    onSubmit={this._handleModalSubmitModalStock} />
+                    fnEliminar={this._handleEliminar}
+                    onSubmit={this._handleModalSubmitModalStock} />}
             </div>
         )
     }

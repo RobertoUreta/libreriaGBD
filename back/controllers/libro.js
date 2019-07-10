@@ -57,10 +57,11 @@ ControladorLibro.prototype = (function() {
             }
         },
         eliminar_libro: async(request, h) => {
-            let data = request.payload;
+            let data = request.params;
+            console.log("data",data);
             try {
                 await request.db.any('CALL eliminar_libro(${id})', {
-                    id: data.id
+                    id: data.codigo
                 });
                 return h.response({
                     mensaje: 'libro eliminado',

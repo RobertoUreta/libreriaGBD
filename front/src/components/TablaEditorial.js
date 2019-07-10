@@ -39,6 +39,22 @@ export class TablaEditorial extends Component {
     _handleCloseEdit = (modalEvt) => {
         this.setState({ showModalEdit: modalEvt ,codigoEditorial:""});
     }
+    _handleEliminar = () => {
+        let codigo = this.state.codigoEditorial;
+        request.delete(`/eliminar_editorial/${codigo}`)
+        .then(res => {
+            request.get('/lista_editoriales')
+                .then(res => {
+                    this.setState({ editoriales: res.data.data, mensaje: res.data.mensaje })
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
     componentDidMount(){
         const self = this;
         request.get('/lista_editoriales')
@@ -132,6 +148,7 @@ export class TablaEditorial extends Component {
                     codigo={this.state.codigoEditorial}
                     show={this.state.showModalEdit}
                     fnCerrar={this._handleCloseEdit}
+                    fnEliminar={this._handleEliminar}
                     onSubmit={this._handleModalSubmitEdit} />}
             </div>
         )

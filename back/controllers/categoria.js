@@ -50,7 +50,7 @@ ControladorCategoria.prototype = (function() {
             }
         },
         eliminar_categoria: async(request, h) => {
-            let data = request.payload;
+            let data = request.params;
             try {
                 await request.db.any('CALL eliminar_categoria(${id})', {
                     id: data.id

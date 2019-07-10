@@ -60,7 +60,7 @@ ControladorUsuario.prototype = (function() {
             }
         },
         eliminar_usuario: async(request, h) => {
-            let data = request.payload;
+            let data = request.params;
             try {
                 await request.db.any('CALL eliminar_usuario(${correo})', {
                     correo: data.correo

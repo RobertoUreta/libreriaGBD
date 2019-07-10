@@ -30,6 +30,15 @@ export class ModalCategoriaEdit extends Component {
         })
     }
 
+    _handleEliminar = () => {
+        this.props.fnEliminar()
+        this.props.fnCerrar(false)
+        this.setState({
+            id:"",
+            nombre: "",
+        })
+    }
+
     _handleModalSubmit = (evt) => {
         //console.log(this.state)
 
@@ -80,6 +89,9 @@ export class ModalCategoriaEdit extends Component {
                 <Modal.Footer>
                     <Button className="btn-custom" variant="secondary" onClick={this._handleClose}>
                         Cerrar
+                    </Button>
+                    <Button className="btn-custom" variant="danger" onClick={this._handleEliminar}>
+                        Eliminar
                     </Button>
                     <Button className="btn-custom" variant="primary" onClick={this._handleModalSubmit}>
                         Editar
