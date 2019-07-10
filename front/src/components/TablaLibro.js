@@ -71,7 +71,7 @@ export class TablaLibro extends Component {
                     });
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.response);
             });
         console.log(modalInfo)
     }
@@ -89,7 +89,7 @@ export class TablaLibro extends Component {
                     });
         })
         .catch(err => {
-            console.log(err);
+            console.log(err.response);
         });
     }
     _handleModalSubmitModalStock = (modalInfo) => {
@@ -116,6 +116,22 @@ export class TablaLibro extends Component {
                 })
                 .catch(err => {
                     console.log(err);
+                });
+        }
+        if (info.precio !== "") {
+            request.put('/actualizar_libro', { id: info.codigo, precio: info.precio })
+                .then(res => {
+                    request.get('/lista_libros')
+                        .then(res => {
+                            self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
+                        })
+
+                        .catch(err => {
+                            console.log(err.response);
+                        });
+                })
+                .catch(err => {
+                    console.log(err.response);
                 });
         }
         if (categorias !== []) {

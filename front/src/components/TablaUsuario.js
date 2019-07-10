@@ -43,18 +43,16 @@ export class TablaUsuario extends Component {
         let id = this.state.email;
         request.delete(`/eliminar_usuario/${id}`)
         .then(res => {
-            console.log(res);
             request.get('/lista_usuarios')
                     .then(res => {
                         this.setState({ usuarios: res.data.data, mensaje: res.data.mensaje })
                     })
                     .catch(err => {
-                        console.log(err);
+                        console.log(err.response);
                     });
         })
-        .catch(err => {
-
-            console.log(err);
+        .catch(error => {
+            console.log(error.response);
         });
     }
     componentDidMount(){
