@@ -58,6 +58,9 @@ export class TablaLibro extends Component {
         let stringedit = info.ref_editorial;
         let array = stringedit.split("-");
         info.ref_editorial = array[0];
+        let fecha1 = new Date(info.fecha);
+        info.fecha = fecha1.toJSON().slice(0, 19).replace('T', ' ');
+        console.log(info);
         request.post('/agregar_libro', { info })
             .then(res => {
                 console.log(res);
@@ -156,7 +159,10 @@ export class TablaLibro extends Component {
             autores.map((e)=>{
                 let stringedit = e.autor;
                 let array = stringedit.split("-");
-                request.post('/agregar_escribe', { ref_autor: array[0], ref_libro: info.codigo,fecha_escritura: info.fecha})
+                let fecha1 = new Date(e.fecha);
+                e.fecha = fecha1.toJSON().slice(0, 19).replace('T', ' ')
+                console.log(e);
+                request.post('/agregar_escribe', { ref_autor: array[0], ref_libro: info.codigo,fecha_escritura: e.fecha})
                     .then(res => {
                         request.get('/lista_libros')
                             .then(res => {
@@ -205,6 +211,8 @@ export class TablaLibro extends Component {
                     <tbody>
                         {this.state.libros.map((v, i) => {
                              let fecha = new Date(v.fecha_publicacion)
+                             /*let datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+                                                d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);*/
                              let nueva = fecha.toJSON().slice(0, 19).replace('T', ' ')
                              let array = nueva.split(' ');
                             return (
@@ -228,13 +236,13 @@ export class TablaLibro extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
-                {this.state.codigoLibro==="" && (this.props.userType)!==1 ? <div></div>:
-                <ModalStock
+                {this.state.codigoLibro!=="" && (this.props.userType)===1 ? <ModalStock
                     show={this.state.showModalStock}
                     codigo={this.state.codigoLibro}
                     fnCerrar={this._handleCloseModalStock}
                     fnEliminar={this._handleEliminar}
-                    onSubmit={this._handleModalSubmitModalStock} />}
+                    onSubmit={this._handleModalSubmitModalStock} />:<div></div>
+                }
             </div>
         )
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Col, Form, Button, Modal } from 'react-bootstrap'
 import request from '../config'
 import { Option } from './Option';
+import DatePicker from "react-datepicker";
 let editoriales = [];
 export class ModalLibro extends Component {
 
@@ -16,25 +17,25 @@ export class ModalLibro extends Component {
             fecha: "",
             idioma: "",
             ref_editorial: "",
-            categoria:""
+            categoria: ""
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         request.get('/lista_editoriales')
-        .then(res => {
-            console.log(res);
-            console.log(res.data.data);
-            let edito = res.data.data;
-            edito.forEach(element => {
-                editoriales.push(element.codigo+"-"+element.nombre);
+            .then(res => {
+                console.log(res);
+                console.log(res.data.data);
+                let edito = res.data.data;
+                edito.forEach(element => {
+                    editoriales.push(element.codigo + "-" + element.nombre);
+                });
+                //this.setState({ editoriales: res.data.data, mensaje:res.data.mensaje})
+                console.log("editoriales", this.state.editoriales)
+            })
+            .catch(err => {
+                console.log(err);
             });
-            //this.setState({ editoriales: res.data.data, mensaje:res.data.mensaje})
-            console.log("editoriales", this.state.editoriales)
-        })
-        .catch(err => {
-            console.log(err);
-        });
     }
     handleChange = event => {
         this.setState({
@@ -44,7 +45,11 @@ export class ModalLibro extends Component {
 
     }
 
-
+    handleChangeDate = date =>{
+        //console.log(date.getFullYear());
+        console.log(date);
+        this.setState({fecha:date})
+    }
     _handleClose = () => {
         this.props.fnCerrar(false)
         this.setState({
@@ -59,7 +64,7 @@ export class ModalLibro extends Component {
     }
 
     _handleModalSubmit = (evt) => {
-        //console.log(this.state)
+        console.log(this.state)
 
         const aux = JSON.stringify(this.state, null, '  ');
         //console.log(data)
@@ -105,10 +110,13 @@ export class ModalLibro extends Component {
                                 />
                             </Form.Group>
                             <Form.Group controlId="fecha">
-                                <Form.Control
-                                    value={this.state.fecha}
-                                    onChange={this.handleChange}
-                                    placeholder="Fecha Publicacion"
+                                <DatePicker
+                                    name="fecha"
+                                    dateFormat="dd-MM-yyyy"
+                                    customInput={<Form.Control />}
+                                    selected={this.state.fecha}
+                                    onChange={this.handleChangeDate}
+                                    placeholderText="Fecha Publicacion"
                                 />
                             </Form.Group>
                             <Form.Group controlId="idioma">
@@ -119,14 +127,14 @@ export class ModalLibro extends Component {
                                 />
                             </Form.Group>
                             <Form.Group controlId="ref_editorial">
-                                        <Form.Control
-                                            as="select"
-                                            value={this.state.ref_editorial}
-                                            onChange={this.handleChange}
-                                        >
-                                            <option hidden>Editorial</option>
-                                            <Option options={editoriales}></Option>
-                                        </Form.Control>
+                                <Form.Control
+                                    as="select"
+                                    value={this.state.ref_editorial}
+                                    onChange={this.handleChange}
+                                >
+                                    <option hidden>Editorial</option>
+                                    <Option options={editoriales}></Option>
+                                </Form.Control>
                             </Form.Group>
                         </Col>
 

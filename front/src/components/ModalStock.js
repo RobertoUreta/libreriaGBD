@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Col, Form, Button, Modal, Row, Table } from 'react-bootstrap'
 import request from '../config'
 import { Option } from './Option';
+import DatePicker from "react-datepicker";
 let categorias = [];
 export class ModalStock extends Component {
 
@@ -10,7 +11,7 @@ export class ModalStock extends Component {
         this.state = {
             codigo: "",
             stock: "",
-            precio:"",
+            precio: "",
             categoria: "",
             categorias: [],
             autor: "",
@@ -34,7 +35,7 @@ export class ModalStock extends Component {
         this.setState({
             codigo: "",
             stock: "",
-            precio:"",
+            precio: "",
             categoria: "",
             categorias: [],
             autor: "",
@@ -148,9 +149,15 @@ export class ModalStock extends Component {
             });
         }
     }
+    handleChangeDate = date => {
+        console.log(date.getFullYear());
+        console.log(date);
+        this.setState({ fecha: date })
+        console.log(this.state.fecha);
+    }
     _handleAddAutor = () => {
         if (this.state.autor !== "" && this.state.fecha !== "") {
-
+            console.log(this.state.fecha);
             this.setState({
                 autores: [...this.state.autores, { autor: this.state.autor, fecha: this.state.fecha }]
             });
@@ -165,7 +172,7 @@ export class ModalStock extends Component {
                 <Modal.Body>
                     <Row>
 
-                    <Col>
+                        <Col>
                             <Form.Group controlId="stock">
                                 <Form.Control
                                     value={this.state.stock}
@@ -177,7 +184,7 @@ export class ModalStock extends Component {
                     </Row>
                     <Row>
 
-                    <Col>
+                        <Col>
                             <Form.Group controlId="precio">
                                 <Form.Control
                                     value={this.state.precio}
@@ -242,10 +249,13 @@ export class ModalStock extends Component {
                         </Col>
                         <Col>
                             <Form.Group controlId="fecha">
-                                <Form.Control
-                                    value={this.state.fecha}
-                                    onChange={this.handleChange}
-                                    placeholder="Fecha"
+                                <DatePicker
+                                    name="fecha"
+                                    dateFormat="dd-MM-yyyy"
+                                    customInput={<Form.Control />}
+                                    selected={this.state.fecha}
+                                    onChange={this.handleChangeDate}
+                                    placeholderText="Fecha Escritura"
                                 />
                             </Form.Group>
                         </Col>
@@ -268,11 +278,15 @@ export class ModalStock extends Component {
                             {this.state.autores.map((v, i) => {
                                 let stringedit = v.autor;
                                 let array = stringedit.split("-");
+                                console.log(v.fecha);
+                                let fecha1 = new Date(v.fecha);
+                                v.fecha = fecha1.toJSON().slice(0, 19).replace('T', ' ')
+                                let array2 = v.fecha.split(' ');
                                 return (
                                     <tr key={array[0]}>
                                         <td>{array[0]}</td>
                                         <td>{array[1]}</td>
-                                        <td>{v.fecha}</td>
+                                        <td>{array2[0]}</td>
                                     </tr>
                                 )
                             })}
