@@ -10,6 +10,7 @@ export class ModalStock extends Component {
         this.state = {
             codigo: "",
             stock: "",
+            precio:"",
             categoria: "",
             categorias: [],
             autor: "",
@@ -33,6 +34,7 @@ export class ModalStock extends Component {
         this.setState({
             codigo: "",
             stock: "",
+            precio:"",
             categoria: "",
             categorias: [],
             autor: "",
@@ -173,8 +175,18 @@ export class ModalStock extends Component {
                             </Form.Group>
                         </Col>
                     </Row>
-                        
+                    <Row>
 
+                    <Col>
+                            <Form.Group controlId="precio">
+                                <Form.Control
+                                    value={this.state.precio}
+                                    onChange={this.handleChange}
+                                    placeholder="Cambiar Precio"
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col>
                             <Form.Group controlId="categoria">
