@@ -77,6 +77,78 @@ ControladorReporte.prototype = (function() {
                 }).code(500);
             }
         },
+        reporte5: async(request, h) => {
+            try {
+                let datita= await request.db.any('SELECT * FROM reporte5', {
+                });
+                return h.response({
+                    mensaje: 'reportes',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener reportes',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        reporte6: async(request, h) => {
+            try {
+                let datita= await request.db.any('SELECT * FROM reporte6', {
+                });
+                return h.response({
+                    mensaje: 'reportes',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener reportes',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        reporte7: async(request, h) => {
+            try {
+                let datita= await request.db.any('SELECT * FROM reporte7', {
+                });
+                return h.response({
+                    mensaje: 'reportes',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener reportes',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        reporte8: async(request, h) => {
+            try {
+                let datita= await request.db.any('SELECT * FROM reporte8', {
+                });
+                return h.response({
+                    mensaje: 'reportes',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener reportes',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
 
     }
 })();

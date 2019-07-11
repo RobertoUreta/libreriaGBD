@@ -84,6 +84,10 @@ const init = async() => {
     server.route({ method: 'GET', path: '/reporte2', handler: controlador_reporte.reporte2 });
     server.route({ method: 'GET', path: '/reporte3', handler: controlador_reporte.reporte3 });
     server.route({ method: 'GET', path: '/reporte4', handler: controlador_reporte.reporte4 });
+    server.route({ method: 'GET', path: '/reporte5', handler: controlador_reporte.reporte5 });
+    server.route({ method: 'GET', path: '/reporte6', handler: controlador_reporte.reporte6 });
+    server.route({ method: 'GET', path: '/reporte7', handler: controlador_reporte.reporte7 });
+    server.route({ method: 'GET', path: '/reporte8', handler: controlador_reporte.reporte8 });
 
 
 };
