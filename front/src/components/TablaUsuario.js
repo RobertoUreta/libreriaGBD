@@ -79,11 +79,11 @@ export class TablaUsuario extends Component {
                         self.setState({ usuarios: res.data.data, mensaje: res.data.mensaje })
                     })
                     .catch(err => {
-                        console.log(err);
+                        console.log(err.response);
                     });
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.response);
             });
         console.log(modalInfo)
     }

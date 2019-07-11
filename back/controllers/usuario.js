@@ -9,8 +9,9 @@ ControladorUsuario.prototype = (function() {
             let data = request.payload.info;
             try {
                 await request.db.any(
-                    'CALL insertar_usuario(${correo},${nombre},${ap_paterno},${ap_materno},${direccion},${ciudad},${tipo})', {
+                    'CALL insertar_usuario(${correo},${contrasenia},${nombre},${ap_paterno},${ap_materno},${direccion},${ciudad},${tipo})', {
                         correo: data.correo,
+                        contrasenia: data.contrasenia,
                         nombre: data.nombre,
                         ap_paterno: data.ap_paterno,
                         ap_materno: data.ap_materno,

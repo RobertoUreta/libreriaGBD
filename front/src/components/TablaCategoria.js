@@ -65,7 +65,7 @@ export class TablaCategoria extends Component {
                     });
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.response);
             });
         console.log(modalInfo)
     }

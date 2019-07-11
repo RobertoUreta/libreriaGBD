@@ -81,7 +81,7 @@ export class TablaEditorial extends Component {
                     });
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.response);
             });
         console.log(modalInfo)
     }

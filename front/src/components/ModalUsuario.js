@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Col, Form, Button, Modal } from 'react-bootstrap'
 //import request from '../config'
 import { Option } from './Option';
-let tipos = ["0-Administrador","1-Cliente"];
+let tipos = ["0-Cliente","1-Administrador"];
 export class ModalUsuario extends Component {
 
     constructor(props) {
