@@ -11,6 +11,7 @@ import { Editorial } from './pages/Editorial';
 import { Autor } from './pages/Autor';
 import { Usuario } from './pages/Usuario';
 import { Categoria } from './pages/Categoria';
+import {Reporte} from './pages/Reporte';
 const loading = () => <div className="animated fadeIn pt-3 text-center"><Spinner color="success" /></div>;
 const Login = Loadable({
   loader: () => import('./Login'),
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path='/autores' component={Autor} />
           <Route path='/usuarios' component={Usuario} />
           <Route path='/categorias' component={Categoria} />
+          <Route path='/reportes' component={Reporte} />
         </Switch>
         </BrowserRouter>
     </div>

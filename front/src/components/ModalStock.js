@@ -38,6 +38,8 @@ export class ModalStock extends Component {
             precio: "",
             categoria: "",
             categorias: [],
+            catAnt: false,
+            autAnt:false,
             autor: "",
             fecha: "",
             autores: [],
@@ -59,7 +61,7 @@ export class ModalStock extends Component {
                         categorias: [...this.state.categorias, element.id + "-" + element.nombre]
                     });
                 });
-                //this.setState({ editoriales: res.data.data, mensaje:res.data.mensaje})
+                this.setState({ catAnt:true});
             })
             .catch(err => {
                 console.log(err);
@@ -92,7 +94,7 @@ export class ModalStock extends Component {
                     this.setState({
                         autores: [...this.state.autores, { autor: element.id + "-" + element.nombre + ' ' + element.ap_paterno + ' ' + element.ap_materno, fecha: array[0] }]
                     });
-                    //autores.push();
+                    this.setState({ autAnt:true});
                 });
                 //this.setState({ editoriales: res.data.data, mensaje:res.data.mensaje})
 
@@ -127,6 +129,8 @@ export class ModalStock extends Component {
             stock: "",
             categoria: "",
             categorias: [],
+            catAnt: false,
+            autAnt:false,
             autor: "",
             fecha: "",
             autores: [],
@@ -135,7 +139,7 @@ export class ModalStock extends Component {
         })
     }
     _handleModalSubmit = (evt) => {
-        //console.log(this.state)
+        console.log(this.state)
         const aux = JSON.stringify(this.state, null, '  ');
         //console.log(data)
         this.props.onSubmit(aux)
@@ -143,7 +147,6 @@ export class ModalStock extends Component {
     }
     _handleAddCategoria = () => {
         if (this.state.categoria !== "") {
-
             this.setState({
                 categorias: [...this.state.categorias, this.state.categoria]
             });
@@ -167,7 +170,7 @@ export class ModalStock extends Component {
         return (
             <Modal show={this.props.show} onHide={this._handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Agregar Libro</Modal.Title>
+                    <Modal.Title>Editar Libro</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>

@@ -58,6 +58,7 @@ class NavBar extends Component {
         const hrefListaAutores = `/autores`
         const hrefListaUsuarios = `/usuarios`
         const hrefListaCategorias = `/categorias`
+        const hrefListaReportes = `/reportes`
        
         return (
             
@@ -91,6 +92,9 @@ class NavBar extends Component {
                             
                             <Nav.Item>
                                 <Nav.Link eventKey="categorias" href={hrefListaCategorias}>Categorias</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="reportes" href={hrefListaReportes}>Reportes</Nav.Link>
                             </Nav.Item>
                         </Nav>
 

@@ -10,6 +10,7 @@ const controlador_categoria = require('./controllers/categoria');
 const controlador_editorial = require('./controllers/editorial');
 const controlador_escribe_categorizado = require('./controllers/escribre_categorizado');
 const controlador_compra = require('./controllers/compra');
+const controlador_reporte = require('./controllers/reporte');
 require('dotenv').config();
 const init = async() => {
     const server = Hapi.server({
@@ -78,6 +79,11 @@ const init = async() => {
     server.route({ method: 'GET', path: '/lista_autores_asociados/{codigo}', handler: controlador_escribe_categorizado.get_autores_asociados_codigo});
     server.route({ method: 'POST', path: '/agregar_compra', handler: controlador_compra.agregar_compra });
 
+
+    server.route({ method: 'GET', path: '/reporte1', handler: controlador_reporte.reporte1 });
+    server.route({ method: 'GET', path: '/reporte2', handler: controlador_reporte.reporte2 });
+    server.route({ method: 'GET', path: '/reporte3', handler: controlador_reporte.reporte3 });
+    server.route({ method: 'GET', path: '/reporte4', handler: controlador_reporte.reporte4 });
 
 
 };
