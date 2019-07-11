@@ -60,6 +60,9 @@ class NavBar extends Component {
         const hrefListaCategorias = `/categorias`
         const hrefListaReportes = `/reportes`
        
+        const hrefListaCarro = `/carro`
+        const hrefListaDespacho=`/despacho`
+
         return (
             
             <div className="Layout">
@@ -78,20 +81,45 @@ class NavBar extends Component {
                             <Nav.Item>
                                 <Nav.Link eventKey="libros" href={hrefListaLibros}>Libros</Nav.Link>
                             </Nav.Item>
+                            {(this.props.tipo ===0) ? 
                             <Nav.Item>
-                                <Nav.Link eventKey="editoriales" href={hrefListaEditoriales}>Editoriales </Nav.Link>
+                                <Nav.Link eventKey="carro" href={hrefListaCarro}>Compra</Nav.Link>
                             </Nav.Item>
+                            :
+                            <div>
+                                
+                            </div>}
+                            {(this.props.tipo ===0 )?
                             <Nav.Item>
-                                <Nav.Link eventKey="autores" href={hrefListaAutores}>Autores</Nav.Link>
+                                <Nav.Link eventKey="despacho" href={hrefListaDespacho}>Despacho</Nav.Link>
                             </Nav.Item>
+                            :
+                            <div>
+                            
+                            </div>}
+                            
                             {(this.props.tipo ===1) ?
                             <Nav.Item>
                                 <Nav.Link eventKey="usuarios" href={hrefListaUsuarios}>Usuarios</Nav.Link>
                             </Nav.Item> 
-                            :<div></div>}
+                            : <div></div>}
                             
+                            {this.props.tipo ===1 ?
                             <Nav.Item>
+                                <Nav.Link eventKey="editoriales" href={hrefListaEditoriales}>Editoriales </Nav.Link>
+                            </Nav.Item>
+                             : <div></div>}
+                             {this.props.tipo ===1 ?
+                             <Nav.Item>
+                                <Nav.Link eventKey="autores" href={hrefListaAutores}>Autores</Nav.Link>
+                              </Nav.Item>
+                             :<div></div>}
+                             {this.props.tipo ===1 ?
+                             <Nav.Item>
                                 <Nav.Link eventKey="categorias" href={hrefListaCategorias}>Categorias</Nav.Link>
+                             </Nav.Item> : <div></div>
+                             }
+                            
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link eventKey="reportes" href={hrefListaReportes}>Reportes</Nav.Link>

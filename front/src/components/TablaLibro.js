@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap'
 import { Col, Button, Row } from 'react-bootstrap'
 //import { } from '../backend/usuario/usuario'
 import { ModalLibro } from './ModalLibro'
-
+import ModalCompraLibro from './ModalCompraLibro'
 import request from '../config'
 import { ModalStock } from './ModalStock';
 export class TablaLibro extends Component {
@@ -13,11 +13,13 @@ export class TablaLibro extends Component {
 
         this._handleShow = this._handleShow.bind(this);
         this._handleShowModalStock = this._handleShowModalStock.bind(this);
+        this._handleCloseCompra = this._handleCloseCompra.bind(this);
         this.state = ({
             libros: [],
             show: false,
             id: 0,
             showModalStock: false,
+            showModalCompra: false,
             codigoLibro: "",
             mensaje: "",
         })
@@ -31,11 +33,15 @@ export class TablaLibro extends Component {
     _handleShowModalStock(codigo) {
         console.log(codigo);
         this.setState({ showModalStock: true, codigoLibro: codigo });
-        //this.setState({ show: true })
+        this.setState({ showModalCompra: true,codigoLibro: codigo });
     }
 
+    
     _handleClose = (modalEvt) => {
         this.setState({ show: modalEvt });
+    }
+    _handleCloseCompra (){
+        this.setState({showModalCompra: false,codigoLibro: ""});
     }
     _handleCloseModalStock = (modalEvt) => {
         this.setState({ showModalStock: modalEvt, codigoLibro: "" });
@@ -185,7 +191,10 @@ export class TablaLibro extends Component {
             <div>
                 <Row>
                     <Col>
-                        <Button className="btn-custom" onClick={this._handleShow}>Agregar Libro</Button>
+                    {(this.props.userType ===1) ?
+                    <Button className="btn-custom" onClick={this._handleShow}>Agregar Libro</Button> 
+                        :<div></div>}
+                        
                     </Col>
                     <Col>
 
@@ -236,12 +245,23 @@ export class TablaLibro extends Component {
                     show={this.state.show}
                     fnCerrar={this._handleClose}
                     onSubmit={this._handleModalSubmit} />
-                {this.state.codigoLibro!=="" && (this.props.userType)===1 ? <ModalStock
-                    show={this.state.showModalStock}
-                    codigo={this.state.codigoLibro}
-                    fnCerrar={this._handleCloseModalStock}
-                    fnEliminar={this._handleEliminar}
-                    onSubmit={this._handleModalSubmitModalStock} />:<div></div>
+                {this.state.codigoLibro!=="" && (this.props.userType)===1 ? 
+                <ModalStock
+                show={this.state.showModalStock}
+                codigo={this.state.codigoLibro}
+                fnCerrar={this._handleCloseModalStock}
+                fnEliminar={this._handleEliminar}
+                onSubmit={this._handleModalSubmitModalStock} />: <div></div>
+                }
+                {this.state.codigoLibro!=="" && (this.props.userType)===0 ? 
+                <ModalCompraLibro fnCerrar={this._handleCloseCompra}
+                idLibro={this.state.codigoLibro}
+                idCliente={this.props.id}
+               
+                isOpen={this.state.showModalCompra}>
+
+                </ModalCompraLibro>: <div></div>
+                
                 }
             </div>
         )

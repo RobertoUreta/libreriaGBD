@@ -7,6 +7,8 @@ import {Layout} from './components/Layout'
 
 import {BrowserRouter, Switch, Route } from 'react-router-dom'
 import  Libro  from './pages/Libro';
+import  Carro from './pages/Carro'
+import Despacho from './pages/Despacho'
 import { Editorial } from './pages/Editorial';
 import { Autor } from './pages/Autor';
 import { Usuario } from './pages/Usuario';
@@ -38,6 +40,8 @@ class App extends Component {
           <Route path='/usuarios' component={Usuario} />
           <Route path='/categorias' component={Categoria} />
           <Route path='/reportes' component={Reporte} />
+          <Route path='/carro' component={Carro}/>
+          <Route path='/despacho' component={Despacho}/>
         </Switch>
         </BrowserRouter>
     </div>

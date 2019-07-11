@@ -117,6 +117,7 @@ class AgregarAutor extends Component{
                       name="fecha"
                       id="fecha"
                       dateFormat="dd-MM-yyyy"
+                      customInput={<Input></Input>}
                       selected={this.state.fecNac}
                       onChange={this.handleChangeDate}
                     />
