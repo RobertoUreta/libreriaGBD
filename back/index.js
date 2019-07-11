@@ -52,6 +52,7 @@ const init = async() => {
     server.route({ method: 'DELETE', path: '/eliminar_libro/{codigo}', handler: controlador_libro.eliminar_libro });
     server.route({ method: 'GET', path: '/lista_libros', handler: controlador_libro.get_libros });
     server.route({ method: 'PUT', path: '/aumentar_stock', handler: controlador_libro.aumentar_stock });
+    
 
     server.route({ method: 'POST', path: '/agregar_categoria', handler: controlador_categoria.agregar_categoria });
     server.route({ method: 'PUT', path: '/actualizar_categoria', handler: controlador_categoria.actualizar_categoria });
@@ -77,6 +78,9 @@ const init = async() => {
     server.route({ method: 'GET', path: '/lista_autores/{codigo}', handler: controlador_escribe_categorizado.get_autores_codigo});
     server.route({ method: 'GET', path: '/lista_autores_asociados/{codigo}', handler: controlador_escribe_categorizado.get_autores_asociados_codigo});
     server.route({ method: 'POST', path: '/agregar_compra', handler: controlador_compra.agregar_compra });
+    server.route({ method: 'GET', path:'/compras_cliente/{correo}',handler: controlador_compra.get_compras});
+    server.route({ method: 'GET', path: '/despacho_cliente/{correo}',handler: controlador_compra.obtener_despachos});
+    server.route({ method: 'PUT', path: '/actualizar_valoracion', handler: controlador_compra.actualizar_valoracion });
 
 
 
