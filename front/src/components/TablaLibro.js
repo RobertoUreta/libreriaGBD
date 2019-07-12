@@ -54,7 +54,7 @@ export class TablaLibro extends Component {
                 self.setState({ libros: res.data.data, mensaje: res.data.mensaje })
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.response);
             });
     }
 
