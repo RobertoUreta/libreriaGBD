@@ -81,6 +81,7 @@ export class TablaLibro extends Component {
             })
             .catch(err => {
                 console.log(err.response);
+                this.setState({mensaje:err.response.data.error_mensaje});
             });
         console.log(modalInfo)
     }
@@ -99,6 +100,7 @@ export class TablaLibro extends Component {
         })
         .catch(err => {
             console.log(err.response);
+            this.setState({mensaje:err.response.data.error_mensaje});
         });
     }
     _handleModalSubmitModalStock = (modalInfo) => {
@@ -112,6 +114,7 @@ export class TablaLibro extends Component {
         let autores = info.autores;
         console.log(autores);
         if (info.stock !== "") {
+            console.log(info.stock);
             request.put('/aumentar_stock', { info })
                 .then(res => {
                     request.get('/lista_libros')
@@ -124,7 +127,9 @@ export class TablaLibro extends Component {
                         });
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.log(err.response);
+                    console.log("hola"+err.response.data.error_mensaje);
+                    self.setState({mensaje:err.response.data.error_mensaje});
                 });
         }
         if (info.precio !== "") {
@@ -141,6 +146,7 @@ export class TablaLibro extends Component {
                 })
                 .catch(err => {
                     console.log(err.response);
+                    this.setState({mensaje:err.response.data.error_mensaje});
                 });
         }
         if (categorias !== []) {
@@ -158,6 +164,7 @@ export class TablaLibro extends Component {
                     })
                     .catch(err => {
                         console.log(err);
+                        this.setState({mensaje:err.response.data.error_mensaje});
                     });
             });
         }
@@ -180,6 +187,7 @@ export class TablaLibro extends Component {
                     })
                     .catch(err => {
                         console.log(err);
+                        this.setState({mensaje:err.response.data.error_mensaje});
                     });
             });
         }

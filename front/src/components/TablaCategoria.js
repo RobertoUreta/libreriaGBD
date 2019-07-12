@@ -82,7 +82,7 @@ export class TablaCategoria extends Component {
                     });
         })
         .catch(err => {
-            console.log(err);
+            console.log(err.response);
         });
     }
     _handleModalSubmitEdit = (modalInfo) => {
@@ -108,7 +108,7 @@ export class TablaCategoria extends Component {
             <div>
                 <Row>
                     <Col>
-                        <Button className="btn-custom" onClick={this._handleShow}>Agregar Editorial</Button>
+                        <Button className="btn-custom" onClick={this._handleShow}>Agregar Categoria</Button>
                     </Col>
                     <Col>
                         

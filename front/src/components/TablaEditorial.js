@@ -49,6 +49,7 @@ export class TablaEditorial extends Component {
                 })
                 .catch(err => {
                     console.log(err);
+                    this.setState({mensaje:err.response.data.error_mensaje});
                 });
         })
         .catch(err => {
@@ -63,6 +64,7 @@ export class TablaEditorial extends Component {
                     })
                     .catch(err => {
                         console.log(err);
+                        this.setState({mensaje:err.response.data.error_mensaje});
                     });
     }
 
@@ -82,6 +84,7 @@ export class TablaEditorial extends Component {
             })
             .catch(err => {
                 console.log(err.response);
+                this.setState({mensaje:err.response.data.error_mensaje});
             });
         console.log(modalInfo)
     }
@@ -100,6 +103,7 @@ export class TablaEditorial extends Component {
             })
             .catch(err => {
                 console.log(err);
+                this.setState({mensaje:err.response.data.error_mensaje});
             });
         console.log(modalInfo)
     }
