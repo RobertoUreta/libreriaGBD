@@ -97,6 +97,7 @@ ControladorLibro.prototype = (function() {
         },
         aumentar_stock: async(request, h) => {
             let data = request.payload.info;
+            console.log("stock",data);
             try {
                 await request.db.any(
                     'CALL aumentar_stock(${codigo},${stock})', {

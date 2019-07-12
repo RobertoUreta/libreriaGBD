@@ -143,7 +143,7 @@ export class TablaUsuario extends Component {
                                     <td>{v.ap_materno}</td>
                                     <td>{v.direccion}</td>
                                     <td>{v.ciudad}</td>
-                                    <td>{v.tipo===0?'Admin':'Cliente'}</td>
+                                    <td>{v.tipo!==0?'Admin':'Cliente'}</td>
                                 </tr>
                             )
                         })}
