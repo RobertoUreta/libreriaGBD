@@ -120,7 +120,7 @@ class NavBar extends Component {
                              </Nav.Item> : <div></div>
                              }
                             
-                            </Nav.Item>
+                            
                             <Nav.Item>
                                 <Nav.Link eventKey="reportes" href={hrefListaReportes}>Reportes</Nav.Link>
                             </Nav.Item>

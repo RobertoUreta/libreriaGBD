@@ -333,6 +333,84 @@ export class TablaReporte extends Component {
             });
     }
 
+    generarReporte9 = () => {
+        this.setState({ num_reporte: 9 });
+        request.get('/reporte9')
+            .then(res => {
+                console.log(res);
+                this.setState({ reporte9: res.data.data, mensaje: res.data.mensaje })
+            })
+            .catch(err => {
+                console.log(err.response);
+            });
+    }
+
+    reporte9() {
+        return (
+            <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Titulo</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.reporte9.map((v, i) => {
+                        return (
+                            <tr key={v.codigo}>
+                                <td>{v.codigo}</td>
+                                <td>{v.titulo_libro}</td>
+                                <td>{v.cantidad}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </Table>
+        );
+
+        
+    }
+
+    generarReporte10 = () => {
+        this.setState({ num_reporte: 10 });
+        request.get('/reporte10')
+            .then(res => {
+                console.log(res);
+                this.setState({ reporte10: res.data.data, mensaje: res.data.mensaje })
+            })
+            .catch(err => {
+                console.log(err.response);
+            });
+    }
+
+    reporte10() {
+        console.log("entre")
+        return (
+            
+            <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.state.reporte10.map((v, i) => {
+                        return (
+                            <tr key={i}>
+                                <td>{v.nombre}</td>
+                                <td>{v.correo}</td>
+                                <td>{v.cantidad}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </Table>
+        );
+    }
+
     render() {
         return (
             <div>
@@ -372,6 +450,14 @@ export class TablaReporte extends Component {
                         <Button className="btn-custom" onClick={this.generarReporte8}>Categorias con menos libros asociados</Button>
                     </Col>
                 </Row>
+                <Row style={{ paddingTop: '20px' }}>
+                <Col>
+                        <Button className="btn-custom" onClick={this.generarReporte9}>Libros mas comprados</Button>
+                    </Col>
+                    <Col>
+                        <Button className="btn-custom" onClick={this.generarReporte10}>Usuarios con mas compras</Button>
+                    </Col> 
+                </Row>
                 <div style={{ paddingTop: '20px' }}>
 
                     {this.state.reporte1.length > 0 && this.state.num_reporte === 1 ? this.reporte1() : <div></div>}
@@ -382,6 +468,8 @@ export class TablaReporte extends Component {
                     {this.state.reporte6.length > 0 && this.state.num_reporte === 6 ? this.reporte6() : <div></div>}
                     {this.state.reporte7.length > 0 && this.state.num_reporte === 7 ? this.reporte7() : <div></div>}
                     {this.state.reporte8.length > 0 && this.state.num_reporte === 8 ? this.reporte8() : <div></div>}
+                    {this.state.reporte9.length > 0 && this.state.num_reporte === 9 ? this.reporte9() : <div></div>}
+                    {this.state.reporte10.length > 0 && this.state.num_reporte === 10 ? this.reporte10() : <div></div>}
 
                 </div>
             </div>

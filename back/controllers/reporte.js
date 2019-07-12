@@ -149,6 +149,42 @@ ControladorReporte.prototype = (function() {
                 }).code(500);
             }
         },
+        reporte9: async(request, h) => {
+            try {
+                let datita= await request.db.any('SELECT * FROM reporte9', {
+                });
+                return h.response({
+                    mensaje: 'reportes',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener reportes',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
+        reporte10: async(request, h) => {
+            try {
+                let datita= await request.db.any('SELECT * FROM reporte10', {
+                });
+                return h.response({
+                    mensaje: 'reportes',
+                    data: datita,
+                    ok: true
+                }).code(200);
+            } catch (error) {
+                return h.response({
+                    mensaje: 'Error al obtener reportes',
+                    ok: false,
+                    error_mensaje: error.message,
+                    error: error
+                }).code(500);
+            }
+        },
 
     }
 })();
