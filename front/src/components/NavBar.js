@@ -120,10 +120,12 @@ class NavBar extends Component {
                              </Nav.Item> : <div></div>
                              }
                             
-                            </Nav.Item>
-                            <Nav.Item>
+                            {this.props.tipo ===1?
+                                <Nav.Item>
                                 <Nav.Link eventKey="reportes" href={hrefListaReportes}>Reportes</Nav.Link>
-                            </Nav.Item>
+                            </Nav.Item>:<div></div>
+                            }
+                            
                         </Nav>
 
                         <NavDropdown
